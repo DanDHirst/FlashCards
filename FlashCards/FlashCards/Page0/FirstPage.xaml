@@ -11,10 +11,16 @@
             <Label Text="hello">
                 
             </Label>
-            <ListView ItemsSource="{Binding group}"
-                  x:Name="Groups"
+            <ListView ItemsSource="{Binding StudyGroups}"
+                  x:Name="PlanetListView"
                   HorizontalOptions="Center"
-                  VerticalOptions="CenterAndExpand"/>
+                  VerticalOptions="FillAndExpand"
+                  SeparatorVisibility="Default"
+                  HasUnevenRows="False"
+                  RowHeight="60"
+                  IsGroupingEnabled="True"
+                  GroupDisplayBinding="{Binding GroupTitle}"
+                  GroupShortNameBinding="{Binding GroupShortName}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

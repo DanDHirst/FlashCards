@@ -12,25 +12,37 @@ namespace FlashCards.Page0
 
         public ObservableCollection<StudyGroup> group => Model.getGroup();
         public String Name = "Dan";
-        public List<string> Planets = new List<string>
-    {
-        "Mercury",
-        "Venus",
-        "Jupiter",
-        "Earth",
-        "Mars",
-        "Saturn",
-        "Pluto"
-    };
 
-        public FirstPageViewModel(Group model = null) 
+
+
+
+        public ObservableCollection<StudyGroup> StudyGroups = new ObservableCollection<StudyGroup>()
         {
-            Model = model ?? new Group();
-        }
+                new StudyGroup("Explored", "E")
+        {
+            new FlashCard("Earth", "a"),
+                    new FlashCard("Mars", "b")
+                },
+                new StudyGroup("Unexplored","U")
+        {
+            new FlashCard("Mercury", "c"),
+                    new FlashCard("Venus", "d"),
+                    new FlashCard("Jupiter", "a"),
+                    new FlashCard("Saturn", "a"),
+                    new FlashCard("Pluto", "a")
+                }
+
+        };
 
         protected override void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             throw new NotImplementedException();
         }
+
+    public FirstPageViewModel(Group model = null) 
+        {
+            Model = model ?? new Group();
+        }
+
     }
 }

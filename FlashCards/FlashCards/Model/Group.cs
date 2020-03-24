@@ -18,4 +18,10 @@ public class Group : BindableModelBase
 	{
 		return this.Groups;
 	}
+	public ObservableCollection<StudyGroup> getGroupNames()
+	{
+
+		return this.Groups;
+	}
+
 }

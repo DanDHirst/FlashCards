@@ -11,12 +11,10 @@ namespace FlashCards
         public App()
         {
             InitializeComponent();
-            FlashCard card = new FlashCard("food?","yes");
-            StudyGroup studygroup = new StudyGroup();
-            studygroup.addFlashCard(card);
+           
 
             Group group = new Group();
-            group.addStudyGroup(studygroup);
+          
 
 
             

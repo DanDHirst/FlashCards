@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-public class StudyGroup
+public class StudyGroup : ObservableCollection<FlashCard>
 {
-	private String name;
-	private ObservableCollection<FlashCard> flashcards = new ObservableCollection<FlashCard>();
+	public string GroupTitle { get; private set; }
+	public string GroupShortName { get; private set; }
+/*	private ObservableCollection<FlashCard> flashcards = new ObservableCollection<FlashCard>();
 
 	public StudyGroup()
 	{
@@ -19,7 +20,13 @@ public class StudyGroup
     {
 		this.flashcards.Add(flashcards);
 
-	}
+	}*/
 
+
+	public StudyGroup(string title, string shortname)
+	{
+		GroupTitle = title;
+		GroupShortName = shortname;
+	}
 
 }
