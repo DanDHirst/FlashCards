@@ -1,7 +1,8 @@
-﻿using System;
+﻿using BasicNavigation;
+using System;
 using System.Collections.ObjectModel;
 
-public class Group
+public class Group : BindableModelBase
 {
 	private ObservableCollection<StudyGroup> Groups = new ObservableCollection<StudyGroup>();
 	public Group()
@@ -12,5 +13,9 @@ public class Group
 	{
 		this.Groups.Add(studyGroup);
 
+	}
+	public ObservableCollection<StudyGroup>  getGroup()
+	{
+		return this.Groups;
 	}
 }

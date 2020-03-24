@@ -9,12 +9,16 @@ using Xamarin.Forms.Xaml;
 
 namespace FlashCards.Page0
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FirstPage : ContentPage
     {
-        public FirstPage()
+
+
+        public FirstPage(FirstPageViewModel vm)
         {
             InitializeComponent();
+            BindingContext = vm ?? new FirstPageViewModel();
+            NavigationPage.SetBackButtonTitle(this, "Back");
         }
+
     }
 }

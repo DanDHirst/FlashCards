@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCards.Page0;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,7 @@ namespace FlashCards
     {
         public App()
         {
+            InitializeComponent();
             FlashCard card = new FlashCard("food?","yes");
             StudyGroup studygroup = new StudyGroup();
             studygroup.addFlashCard(card);
@@ -17,9 +19,18 @@ namespace FlashCards
             group.addStudyGroup(studygroup);
 
 
-            InitializeComponent();
+            
 
-            MainPage = new MainPage();
+            //Instantiate the viewmodel, and pass it a reference to the model
+            FirstPageViewModel vm = new FirstPageViewModel(group);
+
+            //Instantiatge the view, and pass it a reference to the viewmodel
+          
+            FirstPage firstPage = new FirstPage(vm);
+
+            //Navigate in the first page
+            MainPage = new NavigationPage(firstPage);
+
         }
 
         protected override void OnStart()

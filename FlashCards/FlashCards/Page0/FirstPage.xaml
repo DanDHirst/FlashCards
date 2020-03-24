@@ -7,9 +7,14 @@
              x:Class="FlashCards.Page0.FirstPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="hello">
+                
+            </Label>
+            <ListView ItemsSource="{Binding group}"
+                  x:Name="Groups"
+                  HorizontalOptions="Center"
+                  VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
