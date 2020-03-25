@@ -12,10 +12,11 @@ namespace FlashCards.Page0
     public partial class FirstPage : ContentPage
     {
 
-
+        private FirstPageViewModel vm;
         public FirstPage(FirstPageViewModel vm)
         {
             InitializeComponent();
+            this.vm = vm;
             BindingContext = vm ?? new FirstPageViewModel();
 
             GroupListView.SelectionMode = ListViewSelectionMode.None;
@@ -40,7 +41,9 @@ namespace FlashCards.Page0
 
         private async void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            
+            string itemString = (string)e.Item;
+            await DisplayAlert("Alert", "You have clicked " + itemString, "OK");
+            vm.NavigateToFlashCardPage(itemString);
         }
 
     }

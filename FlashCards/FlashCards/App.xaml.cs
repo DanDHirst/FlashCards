@@ -22,7 +22,7 @@ namespace FlashCards
             
 
             //Instantiate the viewmodel, and pass it a reference to the model
-            FirstPageViewModel vm = new FirstPageViewModel();
+            FirstPageViewModel vm = new FirstPageViewModel(group);
 
             //Instantiatge the view, and pass it a reference to the viewmodel
           

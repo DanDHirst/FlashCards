@@ -55,25 +55,22 @@ namespace FlashCards.Page0
 
 
 
-    public FirstPageViewModel() 
+    public FirstPageViewModel(Group group) 
          {
+            FlashCards = group.Cards;
 
-
-            FlashCards = new ObservableCollection<Model.FlashCard>()
-            {
-                new Model.FlashCard("Earth", "1","soft262"),
-                new Model.FlashCard("Mercury", "2","soft262"),
-                new Model.FlashCard("Venus", "3","prco204"),
-                new Model.FlashCard("Jupiter", "3","net206"),
-                new Model.FlashCard("Mars", "4","prco204"),
-                new Model.FlashCard("Saturn", "5","exam net206"),
-                new Model.FlashCard("Pluto", "6","test")
-            };
+           
             getListOfGroups(FlashCards);
-            ButtonCommand = new Command(execute: NavigateToYearEditPage);
+            /*ButtonCommand = new Command(execute: NavigateToFlashCardPage);*/
         }
 
-        void NavigateToYearEditPage()
+        public FirstPageViewModel()
+        {
+        }
+
+
+
+        public void NavigateToFlashCardPage(string cardGroup)
         {
             //This has a concrete reference to a view inside a VM - is this good/bad/indifferent?
 
