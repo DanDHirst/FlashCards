@@ -10,7 +10,15 @@ namespace FlashCards.Model
         
             public string Question { get; set; }
             public string Answer { get; set; }
-            public FlashCard(string name, string dist) => (Question, Answer) = (name, dist);
+
+            public string Group { get; set; }
+            public FlashCard(string name, string dist, String group) => (Question, Answer, Group) = (name, dist, group);
+
+        public FlashCard()
+        {
+        }
+
+            
         
     }
 }

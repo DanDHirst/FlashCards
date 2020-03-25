@@ -16,12 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="FlashCardPage\FlashCardsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Page0\FirstPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Page1\" />
   </ItemGroup>
 </Project>

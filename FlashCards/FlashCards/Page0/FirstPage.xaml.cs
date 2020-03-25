@@ -17,23 +17,29 @@ namespace FlashCards.Page0
         {
             InitializeComponent();
             BindingContext = vm ?? new FirstPageViewModel();
-            DataTemplate dataTemplate = new DataTemplate(() =>
+
+            GroupListView.SelectionMode = ListViewSelectionMode.None;
+            GroupListView.ItemTapped += GroupListView_ItemTapped;
+
+           /* DataTemplate dataTemplate = new DataTemplate(() =>
             {
                 //Return a subclass of Cell
                 TextCell cell = new TextCell();
                 return cell;
-            });
+            });*/
 
             //Binding proxy: When the DataTemplate instantiates a cell, it will also set up the binding as specified below
             //The source will be a data elelement
-            dataTemplate.SetBinding(TextCell.TextProperty, "Question");
-            dataTemplate.SetBinding(TextCell.DetailProperty, "Answer");
+            /*dataTemplate.SetBinding(TextCell.TextProperty, "Group");
+            dataTemplate.SetBinding(TextCell.DetailProperty, "Question");
 
             //Finally, set the ItemTemplate property (type DataTemplate)
-            PlanetListView.ItemTemplate = dataTemplate;
+            PlanetListView.ItemTemplate = dataTemplate;*/
 
-            
+        }
 
+        private async void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
             
         }
 

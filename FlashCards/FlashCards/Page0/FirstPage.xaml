@@ -19,15 +19,18 @@
         <Label Text="{Binding _Name}"></Label>
 
 
-
-        <!-- SelectionMode="{Binding Source={x:Reference SelectSwitch}, Path=IsToggled, Converter={StaticResource bool2mode}, Mode=TwoWay }" -->
-        <ListView ItemsSource="{Binding FlashCards}"
-                  x:Name="PlanetListView"
+        <ListView ItemsSource="{Binding ListOfGroups}"
+                  x:Name="GroupListView"
                   HorizontalOptions="Center"
                   VerticalOptions="FillAndExpand"
                   SeparatorVisibility="Default">
             <!-- SelectedItem is null to begin with -->
         </ListView>
+        <Button Text="navigate to falsh card page"
+                    Grid.Row="3" Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding ButtonCommand}"
+                    />
 
     </StackLayout>
 </ContentPage>
