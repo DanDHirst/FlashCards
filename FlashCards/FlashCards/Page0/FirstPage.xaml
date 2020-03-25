@@ -5,22 +5,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="FlashCards.Page0.FirstPage">
-    <ContentPage.Content>
-        <StackLayout>
+    
+        <ContentPage.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="0,40,0,40"/>
+            </Style>
+        </ContentPage.Resources>
+    <StackLayout>
+        <Label Text="{Binding _Name}"></Label>
 
-            <Label Text="hello">
-                
-            </Label>
-            <ListView ItemsSource="{Binding StudyGroups}"
+
+
+        <!-- SelectionMode="{Binding Source={x:Reference SelectSwitch}, Path=IsToggled, Converter={StaticResource bool2mode}, Mode=TwoWay }" -->
+        <ListView ItemsSource="{Binding FlashCards}"
                   x:Name="PlanetListView"
                   HorizontalOptions="Center"
                   VerticalOptions="FillAndExpand"
-                  SeparatorVisibility="Default"
-                  HasUnevenRows="False"
-                  RowHeight="60"
-                  IsGroupingEnabled="True"
-                  GroupDisplayBinding="{Binding GroupTitle}"
-                  GroupShortNameBinding="{Binding GroupShortName}"/>
-        </StackLayout>
-    </ContentPage.Content>
+                  SeparatorVisibility="Default">
+            <!-- SelectedItem is null to begin with -->
+        </ListView>
+
+    </StackLayout>
 </ContentPage>

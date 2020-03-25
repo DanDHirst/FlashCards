@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCards.Model;
+using System;
 using System.Collections.ObjectModel;
 
 public class StudyGroup : ObservableCollection<FlashCard>

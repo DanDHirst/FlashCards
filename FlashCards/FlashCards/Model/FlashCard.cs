@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class FlashCard
+namespace FlashCards.Model
 {
-	private String question;
-	private String answer;
-	public FlashCard(String question, String answer)
-	{
-		this.question = question;
-		this.answer = answer;
-	}
+    public class FlashCard
+    {
+        
+        
+            public string Question { get; set; }
+            public string Answer { get; set; }
+            public FlashCard(string name, string dist) => (Question, Answer) = (name, dist);
+        
+    }
 }
