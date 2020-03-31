@@ -16,7 +16,7 @@ namespace FlashCards
 
             Group group = new Group();
 
-            FlashCard flash = new FlashCard();
+            //FlashCard flash = new FlashCard();
 
 
             

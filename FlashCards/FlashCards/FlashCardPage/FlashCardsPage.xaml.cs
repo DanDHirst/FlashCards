@@ -16,6 +16,8 @@ namespace FlashCards.FlashCardPage
         {
             InitializeComponent();
             BindingContext = vm ?? new FlashCardsViewModel();
+
+
         }
     }
 }

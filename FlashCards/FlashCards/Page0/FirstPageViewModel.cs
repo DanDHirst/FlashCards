@@ -76,7 +76,7 @@ namespace FlashCards.Page0
 
             // Create viewmodel and pass datamodel as a parameter
             // NOTE that Model is a reference type
-            FlashCardsViewModel vm = new FlashCardsViewModel(); //VM knows about its model (reference)
+            FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards); //VM knows about its model (reference)
 
             // Instantiate the view, and provide the viewmodel
             FlashCardsPage nextPage = new FlashCardsPage(vm); //View knows about it's VM
