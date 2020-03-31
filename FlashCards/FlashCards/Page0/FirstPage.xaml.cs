@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCards.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,9 +42,9 @@ namespace FlashCards.Page0
 
         private async void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            string itemString = (string)e.Item;
-            await DisplayAlert("Alert", "You have clicked " + itemString, "OK");
-            vm.NavigateToFlashCardPage(itemString);
+            ListOfUniqueGroups itemString = (ListOfUniqueGroups)e.Item;
+            await DisplayAlert("Alert", "You have clicked " + itemString.Name, "OK");
+            vm.NavigateToFlashCardPage(itemString.Name);
         }
 
     }
