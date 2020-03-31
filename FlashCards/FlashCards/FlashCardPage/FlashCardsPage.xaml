@@ -10,6 +10,10 @@
             <Label Text="Flash card page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <ListView ItemsSource="{Binding ListOfQuestions}"
+                      x:Name="QuestionListView"
+                      HorizontalOptions="Center"
+                      SeparatorVisibility="Default"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
