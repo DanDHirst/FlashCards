@@ -18,23 +18,53 @@ namespace FlashCards.Page0
 
         private ObservableCollection<Model.FlashCard> _flashCards;
         private ObservableCollection<string> listOfGroups;
+        private ObservableCollection<ListOfUniqueGroups> groupList;
+        private string newGroup;
 
         public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards)
         {
 
+            ListOfGroups =  new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct());
 
-            listOfGroups =  new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct());
-
+            if (GroupList != null)
+            {
+                GroupList.Clear();
+            }
+            foreach (string groupName in ListOfGroups)
+            {
+                ListOfUniqueGroups tempGroup = new ListOfUniqueGroups(groupName);
+                if (GroupList == null)
+                {
+                    GroupList = new ObservableCollection<ListOfUniqueGroups>(){
+                        new ListOfUniqueGroups(groupName)
+                    };
+                }
+                
+                GroupList.Add(tempGroup);
+            }
         }
+     
 
 
-        public ObservableCollection<string> ListOfGroups
+    public ObservableCollection<string> ListOfGroups
         {
             get => listOfGroups;
             set
             {
                 if (listOfGroups == value) return;
                 listOfGroups = value;
+
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<ListOfUniqueGroups> GroupList
+        {
+            get => groupList;
+            set
+            {
+                if (groupList == value) return;
+                groupList = value;
+
                 OnPropertyChanged();
             }
         }
@@ -45,7 +75,22 @@ namespace FlashCards.Page0
             set
             {
                 if (_flashCards == value) return;
+                
                 _flashCards = value;
+                
+                OnPropertyChanged();
+            }
+        }
+
+        public string NewGroup
+        {
+            get => newGroup;
+            set
+            {
+                if (newGroup == value) return;
+
+                newGroup = value;
+
                 OnPropertyChanged();
             }
         }
@@ -55,17 +100,25 @@ namespace FlashCards.Page0
 
 
 
-    public FirstPageViewModel(Group group) 
-         {
-            FlashCards = group.Cards;
+        public FirstPageViewModel(Group group) 
+             {
+                FlashCards = group.Cards;
 
            
-            getListOfGroups(FlashCards);
-            /*ButtonCommand = new Command(execute: NavigateToFlashCardPage);*/
-        }
+                getListOfGroups(FlashCards);
+                ButtonCommand = new Command(execute: AddGroupToList);
+            }
 
         public FirstPageViewModel()
         {
+        }
+
+        public void AddGroupToList()
+        {
+
+            FlashCard card = new FlashCard("","", NewGroup);
+            FlashCards.Add(card);
+            getListOfGroups(FlashCards);
         }
 
 

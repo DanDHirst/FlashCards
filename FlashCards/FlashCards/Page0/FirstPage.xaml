@@ -16,17 +16,29 @@
             </Style>
         </ContentPage.Resources>
     <StackLayout>
-        <Label Text="{Binding _Name}"></Label>
 
 
-        <ListView ItemsSource="{Binding ListOfGroups}"
+        <ListView ItemsSource="{Binding GroupList}"
                   x:Name="GroupListView"
                   HorizontalOptions="Center"
                   VerticalOptions="FillAndExpand"
                   SeparatorVisibility="Default">
             <!-- SelectedItem is null to begin with -->
         </ListView>
-        <Button Text="navigate to falsh card page"
+
+        <Label Text="Type in a new group below and click the button"
+               HorizontalOptions="CenterAndExpand"
+                  VerticalOptions="CenterAndExpand">
+        </Label>
+               
+        
+        <Entry Text="{Binding NewGroup}"
+               HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                >
+            
+        </Entry>
+        <Button Text="Add a new Group"
                     Grid.Row="3" Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Command="{Binding ButtonCommand}"

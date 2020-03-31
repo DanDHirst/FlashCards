@@ -22,20 +22,20 @@ namespace FlashCards.Page0
             GroupListView.SelectionMode = ListViewSelectionMode.None;
             GroupListView.ItemTapped += GroupListView_ItemTapped;
 
-           /* DataTemplate dataTemplate = new DataTemplate(() =>
+            DataTemplate dataTemplate = new DataTemplate(() =>
             {
                 //Return a subclass of Cell
                 TextCell cell = new TextCell();
                 return cell;
-            });*/
+            });
 
             //Binding proxy: When the DataTemplate instantiates a cell, it will also set up the binding as specified below
             //The source will be a data elelement
-            /*dataTemplate.SetBinding(TextCell.TextProperty, "Group");
-            dataTemplate.SetBinding(TextCell.DetailProperty, "Question");
+            dataTemplate.SetBinding(TextCell.TextProperty, "Name");
+            /*dataTemplate.SetBinding(TextCell.DetailProperty, "Question");*/
 
             //Finally, set the ItemTemplate property (type DataTemplate)
-            PlanetListView.ItemTemplate = dataTemplate;*/
+            GroupListView.ItemTemplate = dataTemplate;
 
         }
 
