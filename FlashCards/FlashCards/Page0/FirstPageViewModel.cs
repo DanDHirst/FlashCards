@@ -14,25 +14,25 @@ namespace FlashCards.Page0
 {
     public class FirstPageViewModel : ViewModelBase
     {
-        public ICommand ButtonCommand { get; set; }
+        public ICommand AddCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
 
-        private ObservableCollection<Model.FlashCard> _flashCards;
-        private ObservableCollection<string> listOfGroups;
-        private ObservableCollection<ListOfUniqueGroups> groupList;
-        private string selectedItem;
-        private string newGroup;
+        private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
+        private ObservableCollection<string> listOfGroups; // not shown to screen temp storage
+        private ObservableCollection<ListOfUniqueGroups> groupList; // live grouplist that is shown to the screen
+        private string selectedItem; // not used yet
+        private string newGroup; // used to store the add new group
 
-        public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards)
+        public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards) // used to display the group names in to the listview
         {
 
-            ListOfGroups = new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct());
+            ListOfGroups = new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct()); // locate all the unique group names 
 
-            if (GroupList != null)
+            if (GroupList != null) // if the listview is full already clear it
             {
                 GroupList.Clear();
             }
-            foreach (string groupName in ListOfGroups)
+            foreach (string groupName in ListOfGroups) // loop through all the unique groupname to forge them into objects and add to a new list that will be shown on screen
             {
                 ListOfUniqueGroups tempGroup = new ListOfUniqueGroups(groupName);
                 if (GroupList == null)
@@ -119,7 +119,7 @@ namespace FlashCards.Page0
         {
             FlashCards = group.Cards;
             getListOfGroups(FlashCards);
-            ButtonCommand = new Command(execute: AddGroupToList);
+            AddCommand = new Command(execute: AddGroupToList);
             DeleteCommand = new Command<ListOfUniqueGroups>(execute: (p) =>
             {
                 DeleteItem(p);
@@ -144,13 +144,13 @@ namespace FlashCards.Page0
 
         public void DeleteItem(ListOfUniqueGroups groupName)
         {
-            ObservableCollection<Model.FlashCard> tempFlashcards = null;
+            ObservableCollection<Model.FlashCard> tempFlashcards = null; // stores flash cards that the group doesnt match
             //loop through the flashcards and delete the flash cards with the matching groups
             foreach (FlashCard card in FlashCards)
             {
-                if (card.Group != groupName.Name)
+                if (card.Group != groupName.Name) // if the group name is not equal to the cards group add it to a temp collection
                 {
-                    if (tempFlashcards == null)
+                    if (tempFlashcards == null) // prevent null pointer exceptions
                     {
                         tempFlashcards = new ObservableCollection<FlashCard>(){
                         new FlashCard(card)
@@ -164,38 +164,20 @@ namespace FlashCards.Page0
 
                 }
             }
-            FlashCards = tempFlashcards;
+            FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
         
 
-
-
-
-
-
-    public void NavigateToFlashCardPage(string cardGroup)
+        public void NavigateToFlashCardPage(string cardGroup)
         {
-            //This has a concrete reference to a view inside a VM - is this good/bad/indifferent?
-
-            // Create viewmodel and pass datamodel as a parameter
-            // NOTE that Model is a reference type
+            
             FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards); //VM knows about its model (reference)
 
             // Instantiate the view, and provide the viewmodel
             FlashCardsPage nextPage = new FlashCardsPage(vm); //View knows about it's VM
             Navigation.PushAsync(nextPage);
         }
-
-
-
-
-
-
-
-
-
-
 
 
     }

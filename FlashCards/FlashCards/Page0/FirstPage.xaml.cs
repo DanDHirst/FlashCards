@@ -23,12 +23,7 @@ namespace FlashCards.Page0
             GroupListView.SelectionMode = ListViewSelectionMode.None;
             GroupListView.ItemTapped += GroupListView_ItemTapped;
 
-            /*DataTemplate dataTemplate = new DataTemplate(() =>
-            {
-                //Return a subclass of Cell
-                TextCell cell = new TextCell();
-                return cell;
-            });*/
+
 
             DataTemplate dataTemplate = new DataTemplate(() => // taken from https://github.com/UniversityOfPlymouthComputing/MobileDev-XamarinForms/blob/master/docs/Chapters/Chapter_4_MasterDetail/listview-delete.md
             {
