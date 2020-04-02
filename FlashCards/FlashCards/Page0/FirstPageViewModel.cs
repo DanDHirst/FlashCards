@@ -15,16 +15,18 @@ namespace FlashCards.Page0
     public class FirstPageViewModel : ViewModelBase
     {
         public ICommand ButtonCommand { get; set; }
+        public ICommand DeleteCommand { get; private set; }
 
         private ObservableCollection<Model.FlashCard> _flashCards;
         private ObservableCollection<string> listOfGroups;
         private ObservableCollection<ListOfUniqueGroups> groupList;
+        private string selectedItem;
         private string newGroup;
 
         public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards)
         {
 
-            ListOfGroups =  new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct());
+            ListOfGroups = new ObservableCollection<string>(flashCards.Select(f => f.Group).Distinct());
 
             if (GroupList != null)
             {
@@ -39,14 +41,14 @@ namespace FlashCards.Page0
                         new ListOfUniqueGroups(groupName)
                     };
                 }
-                
+
                 GroupList.Add(tempGroup);
             }
         }
-     
 
 
-    public ObservableCollection<string> ListOfGroups
+
+        public ObservableCollection<string> ListOfGroups
         {
             get => listOfGroups;
             set
@@ -75,12 +77,14 @@ namespace FlashCards.Page0
             set
             {
                 if (_flashCards == value) return;
-                
+
                 _flashCards = value;
-                
+
                 OnPropertyChanged();
             }
         }
+
+
 
         public string NewGroup
         {
@@ -96,18 +100,32 @@ namespace FlashCards.Page0
         }
 
 
+        public string SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                if (selectedItem == value) return;
 
+                selectedItem = value;
 
-
-
-        public FirstPageViewModel(Group group) 
-             {
-                FlashCards = group.Cards;
-
-           
-                getListOfGroups(FlashCards);
-                ButtonCommand = new Command(execute: AddGroupToList);
+                OnPropertyChanged();
             }
+        }
+
+
+
+        public FirstPageViewModel(Group group)
+        {
+            FlashCards = group.Cards;
+            getListOfGroups(FlashCards);
+            ButtonCommand = new Command(execute: AddGroupToList);
+            DeleteCommand = new Command<ListOfUniqueGroups>(execute: (p) =>
+            {
+                DeleteItem(p);
+            });
+            getListOfGroups(FlashCards);
+        }
 
         public FirstPageViewModel()
         {
@@ -116,14 +134,47 @@ namespace FlashCards.Page0
         public void AddGroupToList()
         {
 
-            FlashCard card = new FlashCard("","", NewGroup);
+            FlashCard card = new FlashCard("", "", NewGroup);
             FlashCards.Add(card);
             getListOfGroups(FlashCards);
         }
 
 
 
-        public void NavigateToFlashCardPage(string cardGroup)
+
+        public void DeleteItem(ListOfUniqueGroups groupName)
+        {
+            ObservableCollection<Model.FlashCard> tempFlashcards = null;
+            //loop through the flashcards and delete the flash cards with the matching groups
+            foreach (FlashCard card in FlashCards)
+            {
+                if (card.Group != groupName.Name)
+                {
+                    if (tempFlashcards == null)
+                    {
+                        tempFlashcards = new ObservableCollection<FlashCard>(){
+                        new FlashCard(card)
+                        };
+                        
+                    }
+                    else
+                    {
+                        tempFlashcards.Add(card);
+                    }
+
+                }
+            }
+            FlashCards = tempFlashcards;
+            getListOfGroups(FlashCards); // refresh the groups on the mainpage
+        }
+        
+
+
+
+
+
+
+    public void NavigateToFlashCardPage(string cardGroup)
         {
             //This has a concrete reference to a view inside a VM - is this good/bad/indifferent?
 
@@ -138,6 +189,16 @@ namespace FlashCards.Page0
 
 
 
+
+
+
+
+
+
+
+
+
     }
-    
+ 
 }
+

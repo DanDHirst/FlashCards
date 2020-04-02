@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="FlashCards.Page0.FirstPage">
+             x:Class="FlashCards.Page0.FirstPage"
+             Title="Home Page">
     
         <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,11 +23,16 @@
                   x:Name="GroupListView"
                   HorizontalOptions="Center"
                   VerticalOptions="FillAndExpand"
-                  SeparatorVisibility="Default">
-            <!-- SelectedItem is null to begin with -->
+                  SeparatorVisibility="Default"
+                  SelectedItem="{Binding SelectedItem}">
+       
         </ListView>
 
         <Label Text="Type in a new group below and click the button"
+               HorizontalOptions="CenterAndExpand"
+                  VerticalOptions="CenterAndExpand">
+        </Label>
+        <Label Text="{Binding SelectedItem}"
                HorizontalOptions="CenterAndExpand"
                   VerticalOptions="CenterAndExpand">
         </Label>

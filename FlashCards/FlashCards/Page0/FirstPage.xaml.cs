@@ -23,12 +23,36 @@ namespace FlashCards.Page0
             GroupListView.SelectionMode = ListViewSelectionMode.None;
             GroupListView.ItemTapped += GroupListView_ItemTapped;
 
-            DataTemplate dataTemplate = new DataTemplate(() =>
+            /*DataTemplate dataTemplate = new DataTemplate(() =>
             {
                 //Return a subclass of Cell
                 TextCell cell = new TextCell();
                 return cell;
+            });*/
+
+            DataTemplate dataTemplate = new DataTemplate(() => // taken from https://github.com/UniversityOfPlymouthComputing/MobileDev-XamarinForms/blob/master/docs/Chapters/Chapter_4_MasterDetail/listview-delete.md
+            {
+                //Return a subclass of Cell
+                TextCell cell = new TextCell();
+                //We can set properties on cell
+                MenuItem m1 = new MenuItem
+                {
+                    Text = "Delete",
+                    IsDestructive = true
+                };
+
+                m1.SetBinding(MenuItem.CommandProperty, new Binding("DeleteCommand", source: this.BindingContext));
+
+                m1.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
+
+               
+
+                //Add menu item to the cell
+                cell.ContextActions.Add(m1);
+
+                return cell;
             });
+
 
             //Binding proxy: When the DataTemplate instantiates a cell, it will also set up the binding as specified below
             //The source will be a data elelement
@@ -37,6 +61,8 @@ namespace FlashCards.Page0
 
             //Finally, set the ItemTemplate property (type DataTemplate)
             GroupListView.ItemTemplate = dataTemplate;
+
+
 
         }
 

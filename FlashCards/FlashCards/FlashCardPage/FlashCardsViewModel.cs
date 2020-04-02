@@ -17,6 +17,7 @@ namespace FlashCards.FlashCardPage
         private ObservableCollection<Model.FlashCard> cards;
         private ObservableCollection<string> answers;
         private ObservableCollection<string> questions;
+        private string selectedGroup;
 
         public FlashCardsViewModel()
         {
@@ -32,6 +33,7 @@ namespace FlashCards.FlashCardPage
 
         public void getGroupCards(string group, ObservableCollection<FlashCard> AllCards)
         {
+            selectedGroup = group;
             cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
             questions = new ObservableCollection<string>(cards.Select(c => c.Question));
             answers = new ObservableCollection<string>(cards.Select(c => c.Answer));
@@ -55,6 +57,16 @@ namespace FlashCards.FlashCardPage
             {
                 if (answers == value) return;
                 answers = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SelectedGroup
+        {
+            get => selectedGroup;
+            set
+            {
+                if (selectedGroup == value) return;
+                selectedGroup = value;
                 OnPropertyChanged();
             }
         }

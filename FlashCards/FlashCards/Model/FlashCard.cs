@@ -6,9 +6,9 @@ namespace FlashCards.Model
 {
     public class FlashCard
     {
-        
-        
-            public string Question { get; set; }
+        private FlashCard card;
+
+        public string Question { get; set; }
             public string Answer { get; set; }
 
             public string Group { get; set; }
@@ -18,7 +18,9 @@ namespace FlashCards.Model
         {
         }
 
-            
-        
+        public FlashCard(FlashCard card)
+        {
+            this.card = card;
+        }
     }
 }
