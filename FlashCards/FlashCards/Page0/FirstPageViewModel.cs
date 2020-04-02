@@ -15,6 +15,7 @@ namespace FlashCards.Page0
     public class FirstPageViewModel : ViewModelBase
     {
         public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
 
         private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
@@ -124,6 +125,10 @@ namespace FlashCards.Page0
             {
                 DeleteItem(p);
             });
+            EditCommand = new Command<ListOfUniqueGroups>(execute: (p) =>
+            {
+                EditItem(p);
+            });
             getListOfGroups(FlashCards);
         }
 
@@ -168,6 +173,11 @@ namespace FlashCards.Page0
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
         
+        public void EditItem(ListOfUniqueGroups groupName)
+        {
+
+
+        }
 
         public void NavigateToFlashCardPage(string cardGroup)
         {

@@ -32,16 +32,12 @@
                HorizontalOptions="CenterAndExpand"
                   VerticalOptions="CenterAndExpand">
         </Label>
-        <Label Text="{Binding SelectedItem}"
-               HorizontalOptions="CenterAndExpand"
-                  VerticalOptions="CenterAndExpand">
-        </Label>
+
                
         
         <Entry Text="{Binding NewGroup}"
                HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand"
-                >
+                  VerticalOptions="FillAndExpand">
             
         </Entry>
         <Button Text="Add a new Group"

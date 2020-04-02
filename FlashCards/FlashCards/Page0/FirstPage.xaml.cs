@@ -35,15 +35,25 @@ namespace FlashCards.Page0
                     Text = "Delete",
                     IsDestructive = true
                 };
+                MenuItem m2 = new MenuItem
+                {
+                    Text = "Edit",
+                    IsDestructive = true
+                };
 
                 m1.SetBinding(MenuItem.CommandProperty, new Binding("DeleteCommand", source: this.BindingContext));
 
                 m1.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
 
-               
+                m2.SetBinding(MenuItem.CommandProperty, new Binding("DeleteCommand", source: this.BindingContext));
+
+                m2.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
+
+
 
                 //Add menu item to the cell
                 cell.ContextActions.Add(m1);
+                cell.ContextActions.Add(m2);
 
                 return cell;
             });
