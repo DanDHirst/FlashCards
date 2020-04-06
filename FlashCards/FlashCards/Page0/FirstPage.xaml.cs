@@ -45,7 +45,7 @@ namespace FlashCards.Page0
 
                 m1.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
 
-                m2.SetBinding(MenuItem.CommandProperty, new Binding("DeleteCommand", source: this.BindingContext));
+                m2.SetBinding(MenuItem.CommandProperty, new Binding("EditCommand", source: this.BindingContext));
 
                 m2.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
 
@@ -70,6 +70,10 @@ namespace FlashCards.Page0
 
 
         }
+
+      
+
+
 
         private async void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {

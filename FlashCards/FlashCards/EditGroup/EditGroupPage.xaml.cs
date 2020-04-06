@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FlashCards.FlashCardPage
+namespace FlashCards.EditGroup
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditGroup : ContentPage
+    public partial class EditGroupPage : ContentPage
     {
-        public EditGroup(FlashCardsViewModel vm)
+        EditGroupViewModel vm;
+        public EditGroupPage(EditGroupViewModel vm)
         {
             InitializeComponent();
-            BindingContext = vm ?? new FlashCardsViewModel();
-
-
+            this.vm = vm;
+            BindingContext = vm ?? new EditGroupViewModel();
         }
     }
 }

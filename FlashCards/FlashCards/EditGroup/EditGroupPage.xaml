@@ -4,17 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="FlashCards.FlashCardPage.EditGroup"
-             Title="{Binding SelectedGroup}">
+             x:Class="FlashCards.EditGroup.EditGroupPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding SelectedGroup}"
+            <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <ListView ItemsSource="{Binding ListOfQuestions}"
-                      x:Name="QuestionListView"
-                      HorizontalOptions="Center"
-                      SeparatorVisibility="Default"/>
+            <Entry Text="{Binding Name}"></Entry>
+            <Button Text="Save new name" Command="{Binding SaveCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

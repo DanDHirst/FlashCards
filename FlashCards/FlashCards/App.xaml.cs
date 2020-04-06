@@ -1,14 +1,12 @@
-﻿using FlashCards.Model;
-using FlashCards.Page0;
-using System;
+﻿using FlashCards.Page0;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 
 namespace FlashCards
 {
     public partial class App : Application
     {
+
         public App()
         {
             InitializeComponent();
@@ -44,5 +42,7 @@ namespace FlashCards
         protected override void OnResume()
         {
         }
+
+
     }
 }
