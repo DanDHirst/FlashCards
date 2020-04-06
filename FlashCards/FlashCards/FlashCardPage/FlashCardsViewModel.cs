@@ -70,5 +70,10 @@ namespace FlashCards.FlashCardPage
                 OnPropertyChanged();
             }
         }
+        
+        public string DisplayFlashCardAnswer(int questionIndex)
+        {
+            return ListOfAnswers[questionIndex];
+        }
     }
 }
