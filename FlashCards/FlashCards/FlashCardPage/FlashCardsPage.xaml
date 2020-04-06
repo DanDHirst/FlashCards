@@ -11,10 +11,17 @@
             <Label Text="{Binding SelectedGroup}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            
             <ListView ItemsSource="{Binding ListOfQuestions}"
                       x:Name="QuestionListView"
                       HorizontalOptions="Center"
                       SeparatorVisibility="Default"/>
+
+            <Button Text="Add a new Flash Card"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End"
+                    Command="{Binding AddCardCommand}"
+                />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

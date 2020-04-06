@@ -9,11 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using FlashCards.AddFlashCardPage;
 
 namespace FlashCards.FlashCardPage
 {
     public class FlashCardsViewModel : ViewModelBase
     {
+        public ICommand AddCardCommand { get; set; }
+
         private ObservableCollection<Model.FlashCard> cards;
         private ObservableCollection<string> answers;
         private ObservableCollection<string> questions;
@@ -28,7 +31,7 @@ namespace FlashCards.FlashCardPage
         {
             //_groupCards = FlashCards.Where(i => i.Group == cardGroup);
             getGroupCards(cardGroup, FlashCards);
-
+            AddCardCommand = new Command(execute: NavigateToAddFlashCardPage);
         }
 
         public void getGroupCards(string group, ObservableCollection<FlashCard> AllCards)
@@ -74,6 +77,14 @@ namespace FlashCards.FlashCardPage
         public string DisplayFlashCardAnswer(int questionIndex)
         {
             return ListOfAnswers[questionIndex];
+        }
+
+        public void NavigateToAddFlashCardPage()
+        {
+            AddFlashCardPageViewModel vm = new AddFlashCardPageViewModel();
+
+            AddFlashCardPage.AddFlashCardPage nextPage = new AddFlashCardPage.AddFlashCardPage(vm, selectedGroup);
+            Navigation.PushAsync(nextPage);
         }
     }
 }

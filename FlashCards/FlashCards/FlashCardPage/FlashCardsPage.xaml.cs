@@ -28,5 +28,6 @@ namespace FlashCards.FlashCardPage
             string answer = vm.DisplayFlashCardAnswer(e.ItemIndex);
             await DisplayAlert(e.Item.ToString(), answer, "OK");
         }
+
     }
 }
