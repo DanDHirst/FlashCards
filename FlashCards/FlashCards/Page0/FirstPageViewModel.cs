@@ -1,4 +1,5 @@
 ﻿using BasicNavigation;
+using FlashCards.EditGroup;
 using FlashCards.FlashCardPage;
 using FlashCards.Model;
 using System;
@@ -7,12 +8,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-
 namespace FlashCards.Page0
 {
-    public class FirstPageViewModel : ViewModelBase
+    public class FirstPageViewModel : ViewModelBase, IEditGroup
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -121,15 +122,17 @@ namespace FlashCards.Page0
             FlashCards = group.Cards;
             getListOfGroups(FlashCards);
             AddCommand = new Command(execute: AddGroupToList);
-            DeleteCommand = new Command<ListOfUniqueGroups>(execute: (p) =>
+            DeleteCommand = new Command<ListOfUniqueGroups>(execute: (item) =>
             {
-                DeleteItem(p);
+                DeleteItem(item);
             });
-            EditCommand = new Command<ListOfUniqueGroups>(execute: (p) =>
+            EditCommand = new Command<ListOfUniqueGroups>(execute:  (item) =>
             {
-                EditItem(p);
+                 EditItem(item);
             });
             getListOfGroups(FlashCards);
+
+
         }
 
         public FirstPageViewModel()
@@ -172,11 +175,52 @@ namespace FlashCards.Page0
             FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
-        
+        public void EditGroupList(string oldStr, string newStr)
+        {
+            ObservableCollection<Model.FlashCard> tempFlashcards = null; // stores flash cards that the group doesnt match
+            //loop through the flashcards and delete the flash cards with the matching groups
+            foreach (FlashCard card in FlashCards)
+            {
+                if (card.Group == oldStr) // if the group name is  equal to the cards group add it to a temp collection
+                {
+                    card.Group = newStr;
+                    if (tempFlashcards == null) // prevent null pointer exceptions
+                    {
+                        tempFlashcards = new ObservableCollection<FlashCard>(){
+                        new FlashCard(card)
+                        };
+
+                    }
+                    else
+                    {
+                        tempFlashcards.Add(card);
+                    }
+
+                }
+                else
+                {
+                    if (tempFlashcards == null) // prevent null pointer exceptions
+                    {
+                        tempFlashcards = new ObservableCollection<FlashCard>(){
+                        new FlashCard(card)
+                        };
+
+                    }
+                    else
+                    {
+                        tempFlashcards.Add(card);
+                    }
+                }
+            }
+            FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
+            getListOfGroups(FlashCards); // refresh the groups on the mainpage
+        }
+
         public void EditItem(ListOfUniqueGroups groupName)
         {
-
-
+            EditGroupViewModel vm = new EditGroupViewModel(this, groupName.Name);
+            EditGroupPage nextPage = new EditGroupPage(vm);
+            Navigation.PushAsync(nextPage);
         }
 
         public void NavigateToFlashCardPage(string cardGroup)
@@ -189,7 +233,10 @@ namespace FlashCards.Page0
             Navigation.PushAsync(nextPage);
         }
 
-
+        public void EditGroupName(string oldStr,string newStr)
+        {
+            EditGroupList(oldStr, newStr);
+        }
     }
  
 }

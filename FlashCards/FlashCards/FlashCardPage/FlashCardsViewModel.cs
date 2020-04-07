@@ -1,4 +1,4 @@
-﻿using BasicNavigation;
+﻿
 using FlashCards.Page0;
 using FlashCards.Model;
 using System;
@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using FlashCards.AddFlashCardPage;
 using FlashCards.EditFlashCardPage;
+using BasicNavigation;
 
 namespace FlashCards.FlashCardPage
 {
