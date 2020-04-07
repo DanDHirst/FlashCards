@@ -147,42 +147,12 @@ namespace FlashCards.FlashCardPage
             AllCards.Add(card);
             getGroupCards(SelectedGroup,AllCards);
 
-            getGroupCards(SelectedGroup, AllCards);
         }
 
         public void EditFlashCard(FlashCard oldCard, FlashCard newCard)
         {
-            ObservableCollection<FlashCard> tempFlashcards = null;
-            foreach(FlashCard card in AllCards)
-            {
-               
-                if(card == oldCard)
-                {
-                    if  (tempFlashcards == null)
-                    {
-                        tempFlashcards = new ObservableCollection<FlashCard>(){
-                        new FlashCard(newCard)};
-                    }
-                    else
-                    {
-                        tempFlashcards.Add(newCard);
-                    }
-                }
-                else
-                {
-                    if (tempFlashcards == null)
-                    {
-                        tempFlashcards = new ObservableCollection<FlashCard>(){
-                        new FlashCard(card)};
-                    }
-                    else
-                    {
-                        tempFlashcards.Add(card);
-                    }
-                    
-                }
-            }
-            AllCards = tempFlashcards;
+            AllCards.Remove(oldCard);
+            AllCards.Add(newCard);
             getGroupCards(SelectedGroup, AllCards);
         }
     }
