@@ -13,7 +13,7 @@ namespace FlashCards.EditFlashCardPage
     {
         private FlashCard oldFlashCard;
         private FlashCardsViewModel flashCardsViewModel;
-        private ICommand SaveCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
         private string question;
         private string answer;
 
