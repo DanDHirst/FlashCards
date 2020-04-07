@@ -12,12 +12,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             
-            <ListView ItemsSource="{Binding ListOfQuestions}"
-                      x:Name="QuestionListView"
-                      HorizontalOptions="Center"
-                      SeparatorVisibility="Default"/>
-            
-            <ListView ItemsSource ="{Binding cards}"
+            <ListView ItemsSource ="{Binding Cards}"
                       x:Name="FlashCardsListView">
                 
             </ListView>

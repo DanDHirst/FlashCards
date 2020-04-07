@@ -11,18 +11,19 @@
             <Label Text="Type a question:"
                    HorizontalOptions="CenterAndExpand"
                 />
-            <Entry Text=""
+            <Entry Text="{Binding NewQuestion}"
                    HorizontalOptions="FillAndExpand"
                 />
             <Label Text="Type an answer:"
                    HorizontalOptions="CenterAndExpand"
                 />
-            <Entry Text=""
+            <Entry Text="{Binding NewAnswer}"
                    HorizontalOptions="FillAndExpand"
                 />
             <Button Text="Add Flash Card"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="End"
+                    Command="{Binding AddCommand}"
                 />
         </StackLayout>
     </ContentPage.Content>

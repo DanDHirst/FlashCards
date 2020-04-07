@@ -13,7 +13,7 @@ namespace FlashCards.AddFlashCardPage
     public partial class AddFlashCardPage : ContentPage
     {
         private AddFlashCardPageViewModel vm;
-        public AddFlashCardPage(AddFlashCardPageViewModel vm, string cardGroup)
+        public AddFlashCardPage(AddFlashCardPageViewModel vm)
         {
             InitializeComponent();
             this.vm = vm;

@@ -13,15 +13,16 @@ using FlashCards.AddFlashCardPage;
 
 namespace FlashCards.FlashCardPage
 {
-    public class FlashCardsViewModel : ViewModelBase
+    public class FlashCardsViewModel : ViewModelBase, IAddFlashCard
     {
         public ICommand AddCardCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
 
-        private ObservableCollection<Model.FlashCard> cards;
-        private ObservableCollection<string> answers;
-        private ObservableCollection<string> questions;
+        private ObservableCollection<FlashCard> cards;
+/*        private ObservableCollection<string> answers;
+        private ObservableCollection<string> questions;*/
+        private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
 
         public FlashCardsViewModel()
@@ -46,6 +47,8 @@ namespace FlashCards.FlashCardPage
 
         public void DeleteItem(FlashCard card)
         {
+            AllCards.Remove(card);
+            getGroupCards(SelectedGroup, AllCards);
 
         }
         public void EditItem(FlashCard card)
@@ -55,13 +58,14 @@ namespace FlashCards.FlashCardPage
 
         public void getGroupCards(string group, ObservableCollection<FlashCard> AllCards)
         {
+            this.AllCards = AllCards;
             selectedGroup = group;
             cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
-            questions = new ObservableCollection<string>(cards.Select(c => c.Question));
-            answers = new ObservableCollection<string>(cards.Select(c => c.Answer));
+            /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
+            answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }
 
-        public ObservableCollection<string> ListOfQuestions
+        /*public ObservableCollection<string> ListOfQuestions
         {
             get => questions; 
             set
@@ -81,7 +85,7 @@ namespace FlashCards.FlashCardPage
                 answers = value;
                 OnPropertyChanged();
             }
-        }
+        }*/
         public string SelectedGroup
         {
             get => selectedGroup;
@@ -93,18 +97,46 @@ namespace FlashCards.FlashCardPage
             }
         }
 
-        
-        public string DisplayFlashCardAnswer(int questionIndex)
+        public ObservableCollection<FlashCard> Cards
+        {
+            get => cards;
+            set
+            {
+                if (cards == value) return;
+                cards = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<FlashCard> AllCards
+        {
+            get => allCards;
+            set
+            {
+                if (allCards == value) return;
+                allCards = value;
+                OnPropertyChanged();
+            }
+        }
+
+       /* public string DisplayFlashCardAnswer(int questionIndex)
         {
             return ListOfAnswers[questionIndex];
         }
-
+*/
         public void NavigateToAddFlashCardPage()
         {
-            AddFlashCardPageViewModel vm = new AddFlashCardPageViewModel();
+            AddFlashCardPageViewModel vm = new AddFlashCardPageViewModel(selectedGroup,this);
 
-            AddFlashCardPage.AddFlashCardPage nextPage = new AddFlashCardPage.AddFlashCardPage(vm, selectedGroup);
+            AddFlashCardPage.AddFlashCardPage nextPage = new AddFlashCardPage.AddFlashCardPage(vm);
             Navigation.PushAsync(nextPage);
+        }
+
+        public void AddFlashCard(FlashCard card)
+        {
+            AllCards.Add(card);
+            getGroupCards(SelectedGroup,AllCards);
+
+            getGroupCards(SelectedGroup, AllCards);
         }
     }
 }
