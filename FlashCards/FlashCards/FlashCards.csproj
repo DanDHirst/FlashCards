@@ -11,12 +11,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FlashCardPage\NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="EditGroup\EditGroupPage.xaml">
+    <Compile Update="AddFlashCardPage\AddFlashCardPage.xaml.cs">
+      <DependentUpon>AddFlashCardPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="AddFlashCardPage\AddFlashCardPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="EditFlashCardPage\EditFlashCardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="FlashCardPage\FlashCardsPage.xaml">
