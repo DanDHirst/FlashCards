@@ -229,7 +229,7 @@ namespace FlashCards.Page0
             FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards); //VM knows about its model (reference)
 
             // Instantiate the view, and provide the viewmodel
-            FlashCardPage.EditGroup nextPage = new FlashCardPage.EditGroup(vm); //View knows about it's VM
+            FlashCardsPage nextPage = new FlashCardsPage(vm); //View knows about it's VM
             Navigation.PushAsync(nextPage);
         }
 
