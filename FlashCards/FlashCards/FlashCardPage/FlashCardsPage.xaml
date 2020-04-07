@@ -16,6 +16,11 @@
                       x:Name="QuestionListView"
                       HorizontalOptions="Center"
                       SeparatorVisibility="Default"/>
+            
+            <ListView ItemsSource ="{Binding cards}"
+                      x:Name="FlashCardsListView">
+                
+            </ListView>
 
             <Button Text="Add a new Flash Card"
                     HorizontalOptions="FillAndExpand"

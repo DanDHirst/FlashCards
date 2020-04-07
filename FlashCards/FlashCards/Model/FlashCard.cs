@@ -20,7 +20,9 @@ namespace FlashCards.Model
 
         public FlashCard(FlashCard card)
         {
-            this.card = card;
+            this.Question = card.Question;
+            this.Answer = card.Answer;
+            this.Group = card.Group;
         }
     }
 }

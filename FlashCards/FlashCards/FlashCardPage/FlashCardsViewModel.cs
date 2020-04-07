@@ -16,6 +16,8 @@ namespace FlashCards.FlashCardPage
     public class FlashCardsViewModel : ViewModelBase
     {
         public ICommand AddCardCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; private set; }
 
         private ObservableCollection<Model.FlashCard> cards;
         private ObservableCollection<string> answers;
@@ -32,6 +34,23 @@ namespace FlashCards.FlashCardPage
             //_groupCards = FlashCards.Where(i => i.Group == cardGroup);
             getGroupCards(cardGroup, FlashCards);
             AddCardCommand = new Command(execute: NavigateToAddFlashCardPage);
+            DeleteCommand = new Command<FlashCard>(execute: (item) =>
+            {
+                DeleteItem(item);
+            });
+            EditCommand = new Command<FlashCard>(execute: (item) =>
+            {
+                EditItem(item);
+            });
+        }
+
+        public void DeleteItem(FlashCard card)
+        {
+
+        }
+        public void EditItem(FlashCard card)
+        {
+
         }
 
         public void getGroupCards(string group, ObservableCollection<FlashCard> AllCards)
@@ -44,7 +63,7 @@ namespace FlashCards.FlashCardPage
 
         public ObservableCollection<string> ListOfQuestions
         {
-            get => questions;
+            get => questions; 
             set
             {
                 if (questions == value) return;
@@ -73,6 +92,7 @@ namespace FlashCards.FlashCardPage
                 OnPropertyChanged();
             }
         }
+
         
         public string DisplayFlashCardAnswer(int questionIndex)
         {
