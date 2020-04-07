@@ -10,10 +10,11 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using FlashCards.AddFlashCardPage;
+using FlashCards.EditFlashCardPage;
 
 namespace FlashCards.FlashCardPage
 {
-    public class FlashCardsViewModel : ViewModelBase, IAddFlashCard
+    public class FlashCardsViewModel : ViewModelBase, IAddFlashCard , IEditFlashCard
     {
         public ICommand AddCardCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -53,14 +54,14 @@ namespace FlashCards.FlashCardPage
         }
         public void EditItem(FlashCard card)
         {
-
+            NavigateToEditFlashCardPage(card);
         }
 
         public void getGroupCards(string group, ObservableCollection<FlashCard> AllCards)
         {
             this.AllCards = AllCards;
             selectedGroup = group;
-            cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
+            Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
             /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
             answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }
@@ -118,11 +119,21 @@ namespace FlashCards.FlashCardPage
             }
         }
 
-       /* public string DisplayFlashCardAnswer(int questionIndex)
+        /* public string DisplayFlashCardAnswer(int questionIndex)
+         {
+             return ListOfAnswers[questionIndex];
+         }
+
+
+ */
+        public void NavigateToEditFlashCardPage(FlashCard card)
         {
-            return ListOfAnswers[questionIndex];
+            EditFlashCardViewModel vm = new EditFlashCardViewModel(card, this);
+
+            EditFlashCardPage.EditFlashCardPage nextPage = new EditFlashCardPage.EditFlashCardPage(vm);
+            Navigation.PushAsync(nextPage);
         }
-*/
+
         public void NavigateToAddFlashCardPage()
         {
             AddFlashCardPageViewModel vm = new AddFlashCardPageViewModel(selectedGroup,this);
@@ -136,6 +147,42 @@ namespace FlashCards.FlashCardPage
             AllCards.Add(card);
             getGroupCards(SelectedGroup,AllCards);
 
+            getGroupCards(SelectedGroup, AllCards);
+        }
+
+        public void EditFlashCard(FlashCard oldCard, FlashCard newCard)
+        {
+            ObservableCollection<FlashCard> tempFlashcards = null;
+            foreach(FlashCard card in AllCards)
+            {
+               
+                if(card == oldCard)
+                {
+                    if  (tempFlashcards == null)
+                    {
+                        tempFlashcards = new ObservableCollection<FlashCard>(){
+                        new FlashCard(newCard)};
+                    }
+                    else
+                    {
+                        tempFlashcards.Add(newCard);
+                    }
+                }
+                else
+                {
+                    if (tempFlashcards == null)
+                    {
+                        tempFlashcards = new ObservableCollection<FlashCard>(){
+                        new FlashCard(card)};
+                    }
+                    else
+                    {
+                        tempFlashcards.Add(card);
+                    }
+                    
+                }
+            }
+            AllCards = tempFlashcards;
             getGroupCards(SelectedGroup, AllCards);
         }
     }
