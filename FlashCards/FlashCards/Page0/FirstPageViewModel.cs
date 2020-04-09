@@ -22,6 +22,7 @@ namespace FlashCards.Page0
         private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
         private ObservableCollection<string> listOfGroups; // not shown to screen temp storage
         private ObservableCollection<ListOfUniqueGroups> groupList; // live grouplist that is shown to the screen
+        private Group groups;
         private string selectedItem; // not used yet
         private string newGroup; // used to store the add new group
 
@@ -114,11 +115,25 @@ namespace FlashCards.Page0
                 OnPropertyChanged();
             }
         }
+        public Group Groups
+        {
+            get => groups;
+            set
+            {
+                if (groups == value) return;
+
+                groups = value;
+
+                OnPropertyChanged();
+            }
+        }
 
 
 
         public FirstPageViewModel(Group group)
         {
+
+            Groups = group;
             FlashCards = group.Cards;
             getListOfGroups(FlashCards);
             AddCommand = new Command(execute: AddGroupToList);
@@ -144,6 +159,8 @@ namespace FlashCards.Page0
 
             FlashCard card = new FlashCard("", "", NewGroup);
             FlashCards.Add(card);
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards);
         }
 
@@ -173,6 +190,8 @@ namespace FlashCards.Page0
                 }
             }
             FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
         public void EditGroupList(string oldStr, string newStr)
@@ -213,6 +232,8 @@ namespace FlashCards.Page0
                 }
             }
             FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
 
@@ -226,7 +247,7 @@ namespace FlashCards.Page0
         public void NavigateToFlashCardPage(string cardGroup)
         {
             
-            FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards); //VM knows about its model (reference)
+            FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards, Groups); //VM knows about its model (reference)
 
             // Instantiate the view, and provide the viewmodel
             FlashCardsPage nextPage = new FlashCardsPage(vm); //View knows about it's VM

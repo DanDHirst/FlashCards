@@ -26,15 +26,17 @@ namespace FlashCards.FlashCardPage
         private ObservableCollection<string> questions;*/
         private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
+        private Group groups;
 
         public FlashCardsViewModel()
         {
 
         }
 
-        public FlashCardsViewModel(string cardGroup, ObservableCollection<FlashCard> FlashCards)
+        public FlashCardsViewModel(string cardGroup, ObservableCollection<FlashCard> FlashCards, Group groups)
         {
             //_groupCards = FlashCards.Where(i => i.Group == cardGroup);
+            this.groups = groups;
             getGroupCards(cardGroup, FlashCards);
             AddCardCommand = new Command(execute: NavigateToAddFlashCardPage);
             DeleteCommand = new Command<FlashCard>(execute: (item) =>
@@ -63,6 +65,8 @@ namespace FlashCards.FlashCardPage
             this.AllCards = AllCards;
             selectedGroup = group;
             Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
+            groups.Cards = AllCards;
+            groups.Save();
             /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
             answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }

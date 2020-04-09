@@ -1,4 +1,6 @@
-﻿using FlashCards.Page0;
+﻿using BasicNavigation;
+using FlashCards.Page0;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 
@@ -12,15 +14,23 @@ namespace FlashCards
             InitializeComponent();
            
 
-            Group group = new Group();
 
             //FlashCard flash = new FlashCard();
 
+            string mainDir = FileSystem.AppDataDirectory;
+            string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
+            Group m = BindableModelBase.Load<Group>(path);
+            if (m == null)
+            {
+                //No such file, then create a new model with defaults and save
+                m = new Group();
+                m.Setup();
+                m.Save(path);
+            }
 
-            
 
             //Instantiate the viewmodel, and pass it a reference to the model
-            FirstPageViewModel vm = new FirstPageViewModel(group);
+            FirstPageViewModel vm = new FirstPageViewModel(m);
 
             //Instantiatge the view, and pass it a reference to the viewmodel
           

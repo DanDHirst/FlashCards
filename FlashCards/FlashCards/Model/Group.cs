@@ -8,8 +8,8 @@ public class Group : BindableModelBase
 {
     public ObservableCollection<FlashCard> Cards { get; set; }
 
-    public Group()
-	{
+    public void Setup()
+    {
         Cards = new ObservableCollection<FlashCard>()
             {
                 new FlashCard("Earth", "1","soft262"),
@@ -20,6 +20,11 @@ public class Group : BindableModelBase
                 new FlashCard("Saturn", "5","exam net206"),
                 new FlashCard("Pluto", "6","test")
             };
+    }
+
+    public Group()
+	{
+        
     }
 
 }
