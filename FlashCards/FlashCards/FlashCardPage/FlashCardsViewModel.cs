@@ -32,7 +32,6 @@ namespace FlashCards.FlashCardPage
 
         public FlashCardsViewModel(string cardGroup, ObservableCollection<FlashCard> FlashCards)
         {
-            //_groupCards = FlashCards.Where(i => i.Group == cardGroup);
             getGroupCards(cardGroup, FlashCards);
             AddCardCommand = new Command(execute: NavigateToAddFlashCardPage);
             DeleteCommand = new Command<FlashCard>(execute: (item) =>

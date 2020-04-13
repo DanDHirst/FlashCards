@@ -37,7 +37,8 @@
         
         <Entry Text="{Binding NewGroup}"
                HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand">
+                  VerticalOptions="FillAndExpand"
+               >
             
         </Entry>
         <Button Text="Add a new Group"

@@ -11,19 +11,13 @@ namespace FlashCards
         {
             InitializeComponent();
            
-
+            //Instantiate the card test data
             Group group = new Group();
-
-            //FlashCard flash = new FlashCard();
-
-
-            
 
             //Instantiate the viewmodel, and pass it a reference to the model
             FirstPageViewModel vm = new FirstPageViewModel(group);
 
             //Instantiatge the view, and pass it a reference to the viewmodel
-          
             FirstPage firstPage = new FirstPage(vm);
 
             //Navigate in the first page
