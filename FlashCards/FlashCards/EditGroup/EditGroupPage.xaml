@@ -7,9 +7,6 @@
              x:Class="FlashCards.EditGroup.EditGroupPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
             <Entry Text="{Binding Name}"></Entry>
             <Button Text="Save new name" Command="{Binding SaveCommand}"></Button>
         </StackLayout>

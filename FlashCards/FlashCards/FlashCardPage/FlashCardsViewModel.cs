@@ -22,8 +22,6 @@ namespace FlashCards.FlashCardPage
         public ICommand DeleteCommand { get; private set; }
 
         private ObservableCollection<FlashCard> cards;
-/*        private ObservableCollection<string> answers;
-        private ObservableCollection<string> questions;*/
         private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
 
@@ -63,31 +61,9 @@ namespace FlashCards.FlashCardPage
             this.AllCards = AllCards;
             selectedGroup = group;
             Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
-            /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
-            answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
+            
         }
 
-        /*public ObservableCollection<string> ListOfQuestions
-        {
-            get => questions; 
-            set
-            {
-                if (questions == value) return;
-                questions = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> ListOfAnswers
-        {
-            get => answers;
-            set 
-            {
-                if (answers == value) return;
-                answers = value;
-                OnPropertyChanged();
-            }
-        }*/
         public string SelectedGroup
         {
             get => selectedGroup;
@@ -109,6 +85,7 @@ namespace FlashCards.FlashCardPage
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<FlashCard> AllCards
         {
             get => allCards;
@@ -120,13 +97,6 @@ namespace FlashCards.FlashCardPage
             }
         }
 
-        /* public string DisplayFlashCardAnswer(int questionIndex)
-         {
-             return ListOfAnswers[questionIndex];
-         }
-
-
- */
         public void NavigateToEditFlashCardPage(FlashCard card)
         {
             EditFlashCardViewModel vm = new EditFlashCardViewModel(card, this);
