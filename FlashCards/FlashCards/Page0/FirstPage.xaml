@@ -45,6 +45,11 @@
                     Grid.ColumnSpan="2"
                     Command="{Binding AddCommand}"
                     />
+        <Button Text="refresh"
+                    Grid.Row="3" Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding RefreshCommand}"
+                    />
 
     </StackLayout>
 </ContentPage>

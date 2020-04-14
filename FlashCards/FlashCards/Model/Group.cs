@@ -1,12 +1,18 @@
-﻿using BasicNavigation;
+﻿
 using System;
 using System.Collections.ObjectModel;
+using BasicNavigation;
 using FlashCards;
 using FlashCards.Model;
+using Newtonsoft.Json;
 
 public class Group : BindableModelBase
 {
+    [JsonProperty(PropertyName = "id")]
+    public string ID { get; set; } = "Test";
+    public string User { get; set; } = "User";
     public ObservableCollection<FlashCard> Cards { get; set; }
+    
 
     public void Setup()
     {
@@ -20,6 +26,10 @@ public class Group : BindableModelBase
                 new FlashCard("Saturn", "5","exam net206"),
                 new FlashCard("Pluto", "6","test")
             };
+    }
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 
     public Group()

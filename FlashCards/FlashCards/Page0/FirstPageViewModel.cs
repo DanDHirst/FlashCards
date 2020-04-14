@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 namespace FlashCards.Page0
 {
@@ -18,6 +19,7 @@ namespace FlashCards.Page0
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand RefreshCommand { get; }
 
         private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
         private ObservableCollection<string> listOfGroups; // not shown to screen temp storage
@@ -145,6 +147,7 @@ namespace FlashCards.Page0
             {
                  EditItem(item);
             });
+            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
             getListOfGroups(FlashCards);
 
 
@@ -257,6 +260,29 @@ namespace FlashCards.Page0
         public void EditGroupName(string oldStr,string newStr)
         {
             EditGroupList(oldStr, newStr);
+        }
+        public void syncFilewithCloud(Group g)
+        {
+            // create a new path as using async it forgets the file name
+            string mainDir = FileSystem.AppDataDirectory;
+            string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
+            Groups = g;
+            Groups.Save(path);
+        }
+        async Task ExecuteRefreshCommand()
+        {
+            
+           var list = await CosmosDBService.GetToDoItems("Test");
+           if(list.Count == 1)
+            {
+                foreach(Group g in list)
+                {
+                    syncFilewithCloud(g);
+                }
+                
+            }
+            
+
         }
     }
  

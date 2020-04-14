@@ -12,7 +12,7 @@ namespace FlashCards
         public App()
         {
             InitializeComponent();
-           
+
 
 
             //FlashCard flash = new FlashCard();
