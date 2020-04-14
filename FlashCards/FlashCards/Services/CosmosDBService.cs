@@ -14,6 +14,7 @@ namespace FlashCards
 {
     public class CosmosDBService
     {
+        // code devlopled from https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-xamarin-dotnet#prerequisites
         static DocumentClient docClient = null;
 
         static readonly string databaseName = "FlashCardsDB";

@@ -12,6 +12,8 @@ using Xamarin.Forms;
 using FlashCards.AddFlashCardPage;
 using FlashCards.EditFlashCardPage;
 using BasicNavigation;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace FlashCards.FlashCardPage
 {
@@ -67,6 +69,7 @@ namespace FlashCards.FlashCardPage
             Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
             groups.Cards = AllCards;
             groups.Save();
+            UpdateCloudStorage();
             /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
             answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }
@@ -158,6 +161,40 @@ namespace FlashCards.FlashCardPage
         {
             AllCards.Remove(oldCard);
             AllCards.Add(newCard);
+            getGroupCards(SelectedGroup, AllCards);
+        }
+
+        
+        async Task UpdateCloudStorage()
+        {
+
+            await CosmosDBService.UpdateItem(groups);
+
+
+
+        }
+        async Task ExecuteRefreshCommand()
+        {
+
+            var list = await CosmosDBService.GetToDoItems("Test");
+            if (list.Count == 1)
+            {
+                foreach (Group g in list)
+                {
+                    syncFilewithCloud(g);
+                }
+
+            }
+
+        }
+        public void syncFilewithCloud(Group g)
+        {
+            // create a new path as using async it forgets the file name
+            string mainDir = FileSystem.AppDataDirectory;
+            string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
+            groups = g;
+            groups.Save(path);
+            AllCards = groups.Cards;
             getGroupCards(SelectedGroup, AllCards);
         }
     }

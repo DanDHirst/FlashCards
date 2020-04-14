@@ -49,7 +49,7 @@ namespace FlashCards.Page0
 
                 GroupList.Add(tempGroup);
             }
-            UpdateCloudStorage();
+            _ = UpdateCloudStorage();
         }
 
 
