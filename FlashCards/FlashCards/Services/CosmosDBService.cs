@@ -87,8 +87,8 @@ namespace FlashCards
         /// </summary>
         /// <returns></returns>
         /// 
-        /*
-        public async static Task<List<ToDoItem>> GetCompletedToDoItems()
+
+        /*public async static Task<List<ToDoItem>> GetCompletedToDoItems()
         {
             var todos = new List<ToDoItem>();
 
@@ -109,28 +109,28 @@ namespace FlashCards
             }
 
             return todos;
-        }
+        }*/
         // </GetCompletedToDoItems>
 
-        
+
         // <CompleteToDoItem>        
         /// <summary> 
         /// </summary>
         /// <returns></returns>
-        public async static Task CompleteToDoItem(ToDoItem item)
+        /*public async static Task CompleteToDoItem(ToDoItem item)
         {
             item.Completed = true;
 
             await UpdateToDoItem(item);
-        }
+        }*/
         // </CompleteToDoItem>
 
-        
+
         // <InsertToDoItem>        
         /// <summary> 
         /// </summary>
         /// <returns></returns>
-        public async static Task InsertToDoItem(ToDoItem item)
+        /*public async static Task InsertToDoItem(ToDoItem item)
         {
             if (!await Initialize())
                 return;
@@ -138,35 +138,35 @@ namespace FlashCards
             await docClient.CreateDocumentAsync(
                 UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                 item);
-        }
+        }*/
         // </InsertToDoItem>  
 
         // <DeleteToDoItem>        
         /// <summary> 
         /// </summary>
         /// <returns></returns>
-        public async static Task DeleteToDoItem(ToDoItem item)
+       /* public async static Task DeleteToDoItem(ToDoItem item)
         {
             if (!await Initialize())
                 return;
 
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, item.Id);
             await docClient.DeleteDocumentAsync(docUri);
-        }
+        }*/
         // </DeleteToDoItem>  
 
-         // <UpdateToDoItem>        
+        // <UpdateToDoItem>        
         /// <summary> 
         /// </summary>
         /// <returns></returns>
-        public async static Task UpdateToDoItem(ToDoItem item)
+        public async static Task UpdateItem(Group item)
         {
             if (!await Initialize())
                 return;
 
-            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, item.Id);
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, item.ID);
             await docClient.ReplaceDocumentAsync(docUri, item);
-        }*/
+        }
         // </UpdateToDoItem>  
     }
 }

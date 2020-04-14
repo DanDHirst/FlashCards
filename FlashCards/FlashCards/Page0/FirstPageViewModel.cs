@@ -49,6 +49,7 @@ namespace FlashCards.Page0
 
                 GroupList.Add(tempGroup);
             }
+            UpdateCloudStorage();
         }
 
 
@@ -160,7 +161,7 @@ namespace FlashCards.Page0
         public void AddGroupToList()
         {
 
-            FlashCard card = new FlashCard("", "", NewGroup);
+            FlashCard card = new FlashCard("Example question", "Example answer", NewGroup);
             FlashCards.Add(card);
             Groups.Cards = FlashCards;
             Groups.Save();
@@ -168,7 +169,7 @@ namespace FlashCards.Page0
         }
 
 
-
+        
 
         public void DeleteItem(ListOfUniqueGroups groupName)
         {
@@ -268,6 +269,16 @@ namespace FlashCards.Page0
             string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
             Groups = g;
             Groups.Save(path);
+            FlashCards = Groups.Cards;
+            getListOfGroups(FlashCards);
+        }
+        async Task UpdateCloudStorage()
+        {
+
+            await CosmosDBService.UpdateItem(Groups);
+
+
+
         }
         async Task ExecuteRefreshCommand()
         {
@@ -284,6 +295,8 @@ namespace FlashCards.Page0
             
 
         }
+
+        
     }
  
 }
