@@ -69,7 +69,7 @@ namespace FlashCards.FlashCardPage
             Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
             groups.Cards = AllCards;
             groups.Save();
-            UpdateCloudStorage();
+            _ = UpdateCloudStorage();
             /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
             answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }
