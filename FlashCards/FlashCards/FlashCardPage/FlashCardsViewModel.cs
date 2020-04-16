@@ -74,7 +74,7 @@ namespace FlashCards.FlashCardPage
         }
 
       
-        public Boolean IsBusy
+        public bool IsBusy
         {
             get => isBusy;
             set

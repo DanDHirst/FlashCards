@@ -4,6 +4,7 @@ using FlashCards.FlashCardPage;
 using FlashCards.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -101,7 +102,7 @@ namespace FlashCards.Page0
                 OnPropertyChanged();
             }
         }
-        public Boolean IsBusy
+        public bool IsBusy
         {
             get => isBusy;
             set
