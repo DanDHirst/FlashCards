@@ -165,7 +165,7 @@ namespace FlashCards.FlashCardPage
 
             try
             {
-                var list = await CosmosDBService.GetToDoItems("Test");
+                var list = await CosmosDBService.GetGroups("Test");
                 if (list.Count == 1)
                 {
                     foreach (Group g in list)

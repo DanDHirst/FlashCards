@@ -58,108 +58,32 @@ namespace FlashCards
         /// <summary> 
         /// </summary>
         /// <returns></returns>
-        public async static Task<List<Group>> GetToDoItems(string ID)
+        public async static Task<List<Group>> GetGroups(string ID)
         {
-            var todos = new List<Group>();
+            var groups = new List<Group>();
 
             if (!await Initialize())
-                return todos;
+                return groups;
 
-            var todoQuery = docClient.CreateDocumentQuery<Group>(
+            var groupQuery = docClient.CreateDocumentQuery<Group>(
                 UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                 new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(todo => todo.ID == ID)
                 .AsDocumentQuery();
 
-            while (todoQuery.HasMoreResults)
+            while (groupQuery.HasMoreResults)
             {
-                var queryResults = await todoQuery.ExecuteNextAsync<Group>();
+                var queryResults = await groupQuery.ExecuteNextAsync<Group>();
 
-                todos.AddRange(queryResults);
+                groups.AddRange(queryResults);
             }
-            Console.WriteLine(todos);
-            return todos;
+            Console.WriteLine(groups);
+            return groups;
         }
         // </GetToDoItems>
 
 
-        // <GetCompletedToDoItems>        
-        /// <summary> 
-        /// </summary>
-        /// <returns></returns>
-        /// 
-
-        /*public async static Task<List<ToDoItem>> GetCompletedToDoItems()
-        {
-            var todos = new List<ToDoItem>();
-
-            if (!await Initialize())
-                return todos;
-
-            var completedToDoQuery = docClient.CreateDocumentQuery<ToDoItem>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
-                new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
-                .Where(todo => todo.Completed == true)
-                .AsDocumentQuery();
-
-            while (completedToDoQuery.HasMoreResults)
-            {
-                var queryResults = await completedToDoQuery.ExecuteNextAsync<ToDoItem>();
-
-                todos.AddRange(queryResults);
-            }
-
-            return todos;
-        }*/
-        // </GetCompletedToDoItems>
-
-
-        // <CompleteToDoItem>        
-        /// <summary> 
-        /// </summary>
-        /// <returns></returns>
-        /*public async static Task CompleteToDoItem(ToDoItem item)
-        {
-            item.Completed = true;
-
-            await UpdateToDoItem(item);
-        }*/
-        // </CompleteToDoItem>
-
-
-        // <InsertToDoItem>        
-        /// <summary> 
-        /// </summary>
-        /// <returns></returns>
-        /*public async static Task InsertToDoItem(ToDoItem item)
-        {
-            if (!await Initialize())
-                return;
-
-            await docClient.CreateDocumentAsync(
-                UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
-                item);
-        }*/
-        // </InsertToDoItem>  
-
-        // <DeleteToDoItem>        
-        /// <summary> 
-        /// </summary>
-        /// <returns></returns>
-       /* public async static Task DeleteToDoItem(ToDoItem item)
-        {
-            if (!await Initialize())
-                return;
-
-            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, item.Id);
-            await docClient.DeleteDocumentAsync(docUri);
-        }*/
-        // </DeleteToDoItem>  
-
-        // <UpdateToDoItem>        
-        /// <summary> 
-        /// </summary>
-        /// <returns></returns>
+      
         public async static Task UpdateItem(Group item)
         {
             if (!await Initialize())
