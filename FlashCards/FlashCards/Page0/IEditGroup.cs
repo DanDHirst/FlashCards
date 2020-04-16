@@ -6,6 +6,7 @@ namespace FlashCards.Page0
 {
     interface IEditGroup
     {
+        //
          void EditGroupName(string oldStr, string newStr);
     }
 }

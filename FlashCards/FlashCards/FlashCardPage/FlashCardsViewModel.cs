@@ -25,8 +25,6 @@ namespace FlashCards.FlashCardPage
         public ICommand RefreshCommand { get; }
 
         private ObservableCollection<FlashCard> cards;
-/*        private ObservableCollection<string> answers;
-        private ObservableCollection<string> questions;*/
         private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
         private Group groups;
@@ -109,6 +107,7 @@ namespace FlashCards.FlashCardPage
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<FlashCard> AllCards
         {
             get => allCards;
@@ -120,13 +119,6 @@ namespace FlashCards.FlashCardPage
             }
         }
 
-        /* public string DisplayFlashCardAnswer(int questionIndex)
-         {
-             return ListOfAnswers[questionIndex];
-         }
-
-
- */
         public void NavigateToEditFlashCardPage(FlashCard card)
         {
             EditFlashCardViewModel vm = new EditFlashCardViewModel(card, this);
