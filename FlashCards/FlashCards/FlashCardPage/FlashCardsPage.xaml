@@ -13,7 +13,11 @@
                 HorizontalOptions="CenterAndExpand" />
             
             <ListView ItemsSource ="{Binding Cards}"
-                      x:Name="FlashCardsListView">
+                      x:Name="FlashCardsListView"
+                      SelectedItem="{Binding SelectedItem}"
+                        IsPullToRefreshEnabled="True"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        IsRefreshing="{Binding IsBusy}">
                 
             </ListView>
 

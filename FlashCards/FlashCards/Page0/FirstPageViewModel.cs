@@ -27,6 +27,7 @@ namespace FlashCards.Page0
         private Group groups;
         private string selectedItem; // not used yet
         private string newGroup; // used to store the add new group
+        private bool isBusy = false;
 
         public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards) // used to display the group names in to the listview
         {
@@ -104,6 +105,18 @@ namespace FlashCards.Page0
                 OnPropertyChanged();
             }
         }
+        public Boolean IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value) return;
+
+                isBusy = value;
+
+                OnPropertyChanged();
+            }
+        }
 
 
         public string SelectedItem
@@ -131,7 +144,7 @@ namespace FlashCards.Page0
             }
         }
 
-
+        
 
         public FirstPageViewModel(Group group)
         {
@@ -282,16 +295,27 @@ namespace FlashCards.Page0
         }
         async Task ExecuteRefreshCommand()
         {
-            
-           var list = await CosmosDBService.GetToDoItems("Test");
-           if(list.Count == 1)
+           
+
+            IsBusy = true;
+
+            try
             {
-                foreach(Group g in list)
+                var list = await CosmosDBService.GetToDoItems("Test");
+                if (list.Count == 1)
                 {
-                    syncFilewithCloud(g);
+                    foreach (Group g in list)
+                    {
+                        syncFilewithCloud(g);
+                    }
+
                 }
-                
             }
+            finally
+            {
+                IsBusy = false;
+            }
+            
             
 
         }

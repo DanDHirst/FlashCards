@@ -18,13 +18,15 @@
         </ContentPage.Resources>
     <StackLayout>
 
-
         <ListView ItemsSource="{Binding GroupList}"
                   x:Name="GroupListView"
                   HorizontalOptions="Center"
                   VerticalOptions="FillAndExpand"
                   SeparatorVisibility="Default"
-                  SelectedItem="{Binding SelectedItem}">
+                  SelectedItem="{Binding SelectedItem}"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsBusy}">
        
         </ListView>
 
@@ -45,11 +47,7 @@
                     Grid.ColumnSpan="2"
                     Command="{Binding AddCommand}"
                     />
-        <Button Text="refresh"
-                    Grid.Row="3" Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Command="{Binding RefreshCommand}"
-                    />
+        
 
     </StackLayout>
 </ContentPage>
