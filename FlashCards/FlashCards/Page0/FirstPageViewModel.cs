@@ -179,6 +179,7 @@ namespace FlashCards.Page0
             Groups.Cards = FlashCards;
             Groups.Save();
             getListOfGroups(FlashCards);
+            NewGroup = "";
         }
 
 
