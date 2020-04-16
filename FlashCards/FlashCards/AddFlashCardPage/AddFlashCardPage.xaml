@@ -13,12 +13,14 @@
                 />
             <Entry Text="{Binding NewQuestion}"
                    HorizontalOptions="FillAndExpand"
+                   ClearButtonVisibility="WhileEditing"
                 />
             <Label Text="Type an answer:"
                    HorizontalOptions="CenterAndExpand"
                 />
             <Entry Text="{Binding NewAnswer}"
                    HorizontalOptions="FillAndExpand"
+                   ClearButtonVisibility="WhileEditing"
                 />
             <Button Text="Add Flash Card"
                     HorizontalOptions="FillAndExpand"

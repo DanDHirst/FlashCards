@@ -38,6 +38,7 @@
         <Entry Text="{Binding NewGroup}"
                HorizontalOptions="FillAndExpand"
                   VerticalOptions="FillAndExpand"
+               ClearButtonVisibility="WhileEditing"
                >
             
         </Entry>

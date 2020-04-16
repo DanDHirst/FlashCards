@@ -7,7 +7,8 @@
              x:Class="FlashCards.EditGroup.EditGroupPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Text="{Binding Name}"></Entry>
+            <Entry Text="{Binding Name}"
+                   ClearButtonVisibility="WhileEditing"/>
             <Button Text="Save new name" Command="{Binding SaveCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
