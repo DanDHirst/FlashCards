@@ -5,6 +5,7 @@ using FlashCards.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 namespace FlashCards.Page0
 {
@@ -13,11 +14,16 @@ namespace FlashCards.Page0
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand RefreshCommand { get; }
 
         private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
         private ObservableCollection<string> listOfGroups; // not shown to screen temp storage
         private ObservableCollection<ListOfUniqueGroups> groupList; // live grouplist that is shown to the screen
+
+        private Group groups;
+        private string selectedItem; // not used yet
         private string newGroup; // used to store the add new group
+        private bool isBusy = false;
 
         public void getListOfGroups(ObservableCollection<Model.FlashCard> flashCards) // used to display the group names in to the listview
         {
@@ -40,6 +46,7 @@ namespace FlashCards.Page0
 
                 GroupList.Add(tempGroup);
             }
+            _ = UpdateCloudStorage();
         }
 
 
@@ -94,9 +101,51 @@ namespace FlashCards.Page0
                 OnPropertyChanged();
             }
         }
-
-        public FirstPageViewModel(Group group) //
+        public Boolean IsBusy
         {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value) return;
+
+                isBusy = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+
+        public string SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                if (selectedItem == value) return;
+
+                selectedItem = value;
+
+                OnPropertyChanged();
+            }
+        }
+        public Group Groups
+        {
+            get => groups;
+            set
+            {
+                if (groups == value) return;
+
+                groups = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        
+
+        public FirstPageViewModel(Group group)
+        {
+
+            Groups = group;
             FlashCards = group.Cards;
             getListOfGroups(FlashCards);
             AddCommand = new Command(execute: AddGroupToList);
@@ -108,6 +157,7 @@ namespace FlashCards.Page0
             {
                  EditItem(item);
             });
+            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
             getListOfGroups(FlashCards);
 
 
@@ -120,13 +170,15 @@ namespace FlashCards.Page0
         public void AddGroupToList()
         {
 
-            FlashCard card = new FlashCard("", "", NewGroup);
+            FlashCard card = new FlashCard("Example question", "Example answer", NewGroup);
             FlashCards.Add(card);
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards);
         }
 
 
-
+        
 
         public void DeleteItem(ListOfUniqueGroups groupName)
         {
@@ -151,6 +203,8 @@ namespace FlashCards.Page0
                 }
             }
             FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
         public void EditGroupList(string oldStr, string newStr)
@@ -191,6 +245,8 @@ namespace FlashCards.Page0
                 }
             }
             FlashCards = tempFlashcards; // set the collection to the all the flash cards that don't match the group name
+            Groups.Cards = FlashCards;
+            Groups.Save();
             getListOfGroups(FlashCards); // refresh the groups on the mainpage
         }
 
@@ -204,7 +260,7 @@ namespace FlashCards.Page0
         public void NavigateToFlashCardPage(string cardGroup)
         {
             
-            FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards); //VM knows about its model (reference)
+            FlashCardsViewModel vm = new FlashCardsViewModel(cardGroup, FlashCards, Groups); //VM knows about its model (reference)
 
             // Instantiate the view, and provide the viewmodel
             FlashCardsPage nextPage = new FlashCardsPage(vm); //View knows about it's VM
@@ -215,6 +271,52 @@ namespace FlashCards.Page0
         {
             EditGroupList(oldStr, newStr);
         }
+        public void syncFilewithCloud(Group g)
+        {
+            // create a new path as using async it forgets the file name
+            string mainDir = FileSystem.AppDataDirectory;
+            string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
+            Groups = g;
+            Groups.Save(path);
+            FlashCards = Groups.Cards;
+            getListOfGroups(FlashCards);
+        }
+        async Task UpdateCloudStorage()
+        {
+
+            await CosmosDBService.UpdateItem(Groups);
+
+
+
+        }
+        async Task ExecuteRefreshCommand()
+        {
+           
+
+            IsBusy = true;
+
+            try
+            {
+                var list = await CosmosDBService.GetToDoItems("Test");
+                if (list.Count == 1)
+                {
+                    foreach (Group g in list)
+                    {
+                        syncFilewithCloud(g);
+                    }
+
+                }
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            
+            
+
+        }
+
+        
     }
  
 }

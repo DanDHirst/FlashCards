@@ -1,12 +1,11 @@
 ﻿
 using System;
 using System.Collections.ObjectModel;
-using BasicNavigation;
 using FlashCards;
 using FlashCards.Model;
 using Newtonsoft.Json;
 
-public class Group : BindableModelBase
+public class Group 
 {
     [JsonProperty(PropertyName = "id")]
     public string ID { get; set; } = "Test";

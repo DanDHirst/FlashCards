@@ -71,11 +71,11 @@ namespace FlashCards.Page0
 
         }
 
-      
 
 
 
-        private async void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
+
+        private void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ListOfUniqueGroups itemString = (ListOfUniqueGroups)e.Item;
             //await DisplayAlert("Alert", "You have clicked " + itemString.Name, "OK");

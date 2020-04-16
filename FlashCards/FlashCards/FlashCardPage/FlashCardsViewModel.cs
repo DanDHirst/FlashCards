@@ -12,6 +12,8 @@ using Xamarin.Forms;
 using FlashCards.AddFlashCardPage;
 using FlashCards.EditFlashCardPage;
 using BasicNavigation;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace FlashCards.FlashCardPage
 {
@@ -20,18 +22,23 @@ namespace FlashCards.FlashCardPage
         public ICommand AddCardCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand RefreshCommand { get; }
 
         private ObservableCollection<FlashCard> cards;
         private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
+        private Group groups;
+        private bool isBusy = false;
 
         public FlashCardsViewModel()
         {
 
         }
 
-        public FlashCardsViewModel(string cardGroup, ObservableCollection<FlashCard> FlashCards)
+        public FlashCardsViewModel(string cardGroup, ObservableCollection<FlashCard> FlashCards, Group groups)
         {
+            //_groupCards = FlashCards.Where(i => i.Group == cardGroup);
+            this.groups = groups;
             getGroupCards(cardGroup, FlashCards);
             AddCardCommand = new Command(execute: NavigateToAddFlashCardPage);
             DeleteCommand = new Command<FlashCard>(execute: (item) =>
@@ -42,6 +49,7 @@ namespace FlashCards.FlashCardPage
             {
                 EditItem(item);
             });
+            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
         }
 
         public void DeleteItem(FlashCard card)
@@ -60,9 +68,24 @@ namespace FlashCards.FlashCardPage
             this.AllCards = AllCards;
             selectedGroup = group;
             Cards = new ObservableCollection<FlashCard>(AllCards.Where(i => i.Group == group));
-            
+            groups.Cards = AllCards;
+            groups.Save();
+            _ = UpdateCloudStorage();
         }
 
+      
+        public Boolean IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value) return;
+
+                isBusy = value;
+
+                OnPropertyChanged();
+            }
+        }
         public string SelectedGroup
         {
             get => selectedGroup;
@@ -123,6 +146,49 @@ namespace FlashCards.FlashCardPage
         {
             AllCards.Remove(oldCard);
             AllCards.Add(newCard);
+            getGroupCards(SelectedGroup, AllCards);
+        }
+
+        
+        async Task UpdateCloudStorage()
+        {
+
+            await CosmosDBService.UpdateItem(groups);
+
+
+
+        }
+        async Task ExecuteRefreshCommand()
+        {
+
+            IsBusy = true;
+
+            try
+            {
+                var list = await CosmosDBService.GetToDoItems("Test");
+                if (list.Count == 1)
+                {
+                    foreach (Group g in list)
+                    {
+                        syncFilewithCloud(g);
+                    }
+
+                }
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
+        public void syncFilewithCloud(Group g)
+        {
+            // create a new path as using async it forgets the file name
+            string mainDir = FileSystem.AppDataDirectory;
+            string path = System.IO.Path.Combine(mainDir, "FlashCard.xml");
+            groups = g;
+            groups.Save(path);
+            AllCards = groups.Cards;
             getGroupCards(SelectedGroup, AllCards);
         }
     }
