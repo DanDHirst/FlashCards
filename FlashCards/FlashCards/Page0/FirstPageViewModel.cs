@@ -2,13 +2,8 @@
 using FlashCards.EditGroup;
 using FlashCards.FlashCardPage;
 using FlashCards.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -24,6 +19,7 @@ namespace FlashCards.Page0
         private ObservableCollection<Model.FlashCard> _flashCards; // all of the flash cards
         private ObservableCollection<string> listOfGroups; // not shown to screen temp storage
         private ObservableCollection<ListOfUniqueGroups> groupList; // live grouplist that is shown to the screen
+
         private Group groups;
         private string selectedItem; // not used yet
         private string newGroup; // used to store the add new group
@@ -55,7 +51,7 @@ namespace FlashCards.Page0
 
 
 
-        public ObservableCollection<string> ListOfGroups
+        public ObservableCollection<string> ListOfGroups //accessors for temp storage
         {
             get => listOfGroups;
             set
@@ -66,7 +62,7 @@ namespace FlashCards.Page0
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<ListOfUniqueGroups> GroupList
+        public ObservableCollection<ListOfUniqueGroups> GroupList //accessors for live grouplist
         {
             get => groupList;
             set
@@ -78,7 +74,7 @@ namespace FlashCards.Page0
             }
         }
 
-        public ObservableCollection<Model.FlashCard> FlashCards
+        public ObservableCollection<Model.FlashCard> FlashCards //accessors for all cards
         {
             get => _flashCards;
             set
@@ -93,7 +89,7 @@ namespace FlashCards.Page0
 
 
 
-        public string NewGroup
+        public string NewGroup //accessors for adding a new group
         {
             get => newGroup;
             set

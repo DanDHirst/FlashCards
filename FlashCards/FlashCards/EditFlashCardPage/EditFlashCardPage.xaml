@@ -9,9 +9,11 @@
         <StackLayout>
             <Entry  Text="{Binding Question}"
                     HorizontalOptions="FillAndExpand"
+                    ClearButtonVisibility="WhileEditing"
                 />
             <Entry  Text="{Binding Answer}"
                     HorizontalOptions="FillAndExpand"
+                    ClearButtonVisibility="WhileEditing"
                 />
             <Button Text="Save Changes"
                     HorizontalOptions="FillAndExpand"
