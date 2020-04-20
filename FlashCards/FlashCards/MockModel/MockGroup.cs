@@ -1,4 +1,5 @@
-﻿using FlashCards.Model;
+﻿using BasicNavigation;
+using FlashCards.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ModelUnitTest.MockModel
 {
-    public class MockGroup
+    public class MockGroup : BindableModelBase
     {
        
         [JsonProperty(PropertyName = "id")]
@@ -35,6 +36,10 @@ namespace ModelUnitTest.MockModel
         }
 
         public MockGroup()
+        {
+
+        }
+        public override void Save()
         {
 
         }

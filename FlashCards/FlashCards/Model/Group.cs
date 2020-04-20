@@ -38,8 +38,4 @@ public class Group : BindableModelBase
         
     }
 
-    public static implicit operator Group(MockGroup v)
-    {
-        throw new NotImplementedException();
-    }
 }
