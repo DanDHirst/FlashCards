@@ -165,26 +165,7 @@ namespace FlashCards.Page0
 
         }
 
-        public FirstPageViewModel(MockGroup group) // mock contructor
-        {
 
-            Groups = group;
-            FlashCards = group.Cards;
-            getListOfGroups(FlashCards);
-            AddCommand = new Command(execute: AddGroupToList);
-            DeleteCommand = new Command<ListOfUniqueGroups>(execute: (item) =>
-            {
-                DeleteItem(item);
-            });
-            EditCommand = new Command<ListOfUniqueGroups>(execute: (item) =>
-            {
-                EditItem(item);
-            });
-            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
-            getListOfGroups(FlashCards);
-
-
-        }
 
         public FirstPageViewModel()
         {
