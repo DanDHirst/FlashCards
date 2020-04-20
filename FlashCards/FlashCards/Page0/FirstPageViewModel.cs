@@ -10,7 +10,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 namespace FlashCards.Page0
 {
-    public class FirstPageViewModel : ViewModelBase, IEditGroup
+    public class FirstPageViewModel : ViewModelBase, IEditGroup, INavigateToCards
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
