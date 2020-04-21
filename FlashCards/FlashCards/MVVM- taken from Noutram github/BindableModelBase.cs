@@ -19,7 +19,7 @@ namespace BasicNavigation
         }
 
         //Serialise this instance to an XML file
-        public void Save()
+        public virtual void Save()
         {
             if (Filename != null)
             {

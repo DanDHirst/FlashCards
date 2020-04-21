@@ -58,7 +58,6 @@ namespace FlashCards.FlashCardPage
                 return cell;
             });
             dataTemplate.SetBinding(TextCell.TextProperty, "Question");
-            /*dataTemplate.SetBinding(TextCell.DetailProperty, "Question");*/
 
             //Finally, set the ItemTemplate property (type DataTemplate)
             FlashCardsListView.ItemTemplate = dataTemplate;
@@ -69,8 +68,6 @@ namespace FlashCards.FlashCardPage
         {
             FlashCard itemString = (FlashCard)e.Item;
             await DisplayAlert(itemString.Question, itemString.Answer, "OK");
-            /*string answer = vm.DisplayFlashCardAnswer(e.ItemIndex);
-            await DisplayAlert(e.Item.ToString(), answer, "OK");*/
         }
 
     }

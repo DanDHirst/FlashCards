@@ -22,13 +22,13 @@ namespace FlashCards.FlashCardPage
         public ICommand AddCardCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand RefreshCommand { get; }
 
         private ObservableCollection<FlashCard> cards;
-/*        private ObservableCollection<string> answers;
-        private ObservableCollection<string> questions;*/
         private ObservableCollection<FlashCard> allCards;
         private string selectedGroup;
         private Group groups;
+        private bool isBusy = false;
 
         public FlashCardsViewModel()
         {
@@ -49,6 +49,7 @@ namespace FlashCards.FlashCardPage
             {
                 EditItem(item);
             });
+            RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
         }
 
         public void DeleteItem(FlashCard card)
@@ -70,31 +71,21 @@ namespace FlashCards.FlashCardPage
             groups.Cards = AllCards;
             groups.Save();
             _ = UpdateCloudStorage();
-            /*questions = new ObservableCollection<string>(cards.Select(c => c.Question));
-            answers = new ObservableCollection<string>(cards.Select(c => c.Answer));*/
         }
 
-        /*public ObservableCollection<string> ListOfQuestions
+      
+        public bool IsBusy
         {
-            get => questions; 
+            get => isBusy;
             set
             {
-                if (questions == value) return;
-                questions = value;
+                if (isBusy == value) return;
+
+                isBusy = value;
+
                 OnPropertyChanged();
             }
         }
-
-        public ObservableCollection<string> ListOfAnswers
-        {
-            get => answers;
-            set 
-            {
-                if (answers == value) return;
-                answers = value;
-                OnPropertyChanged();
-            }
-        }*/
         public string SelectedGroup
         {
             get => selectedGroup;
@@ -116,6 +107,7 @@ namespace FlashCards.FlashCardPage
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<FlashCard> AllCards
         {
             get => allCards;
@@ -127,13 +119,6 @@ namespace FlashCards.FlashCardPage
             }
         }
 
-        /* public string DisplayFlashCardAnswer(int questionIndex)
-         {
-             return ListOfAnswers[questionIndex];
-         }
-
-
- */
         public void NavigateToEditFlashCardPage(FlashCard card)
         {
             EditFlashCardViewModel vm = new EditFlashCardViewModel(card, this);
@@ -176,14 +161,23 @@ namespace FlashCards.FlashCardPage
         async Task ExecuteRefreshCommand()
         {
 
-            var list = await CosmosDBService.GetToDoItems("Test");
-            if (list.Count == 1)
-            {
-                foreach (Group g in list)
-                {
-                    syncFilewithCloud(g);
-                }
+            IsBusy = true;
 
+            try
+            {
+                var list = await CosmosDBService.GetToDoItems("Test");
+                if (list.Count == 1)
+                {
+                    foreach (Group g in list)
+                    {
+                        syncFilewithCloud(g);
+                    }
+
+                }
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
         }

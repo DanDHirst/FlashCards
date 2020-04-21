@@ -15,6 +15,7 @@ namespace FlashCards
 
 
 
+
             //FlashCard flash = new FlashCard();
 
             string mainDir = FileSystem.AppDataDirectory;
@@ -33,7 +34,6 @@ namespace FlashCards
             FirstPageViewModel vm = new FirstPageViewModel(m);
 
             //Instantiatge the view, and pass it a reference to the viewmodel
-          
             FirstPage firstPage = new FirstPage(vm);
 
             //Navigate in the first page
