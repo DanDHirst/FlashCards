@@ -10,6 +10,7 @@ namespace BasicNavigation
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected string filename;
+        public bool testMode = false;
         public string Filename { get => filename; set => filename = value; }
 
         //Create events when properties change
@@ -21,14 +22,19 @@ namespace BasicNavigation
         //Serialise this instance to an XML file
         public virtual void Save()
         {
-            if (Filename != null)
+            if (!testMode)
             {
-                Save(Filename);
+                if (Filename != null)
+                {
+                    Save(Filename);
+                }
+                else
+                {
+                    throw new Exception("No filename set - either load or save with filename first");
+                }
             }
-            else
-            {
-                throw new Exception("No filename set - either load or save with filename first");
-            }
+
+            
         }
 
         public void Save(string fn)

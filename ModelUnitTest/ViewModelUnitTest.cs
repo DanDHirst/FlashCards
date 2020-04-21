@@ -13,8 +13,9 @@ namespace ModelUnitTest
         [TestMethod]
         public void ViewModelTestAddACard()
         {
-            MockGroup m = new MockGroup();
+            Group m = new Group();
             m.Setup();
+            m.testMode = true;
             FirstPageViewModel vm = new FirstPageViewModel(m);
             vm.NewGroup="Test";
             FlashCard card = new FlashCard("Example question", "Example answer", "Test");
@@ -22,7 +23,7 @@ namespace ModelUnitTest
             bool found = false;
             foreach(FlashCard f in vm.FlashCards)
             {
-                if (f == card)
+                if (f.ToString()==card.ToString())
                 {
                     found = true;
                 }
@@ -33,8 +34,9 @@ namespace ModelUnitTest
         [TestMethod]
         public void ViewModelTestEditAGroup()
         {
-            MockGroup m = new MockGroup();
+            Group m = new Group();
             m.Setup();
+            m.testMode = true;
             FirstPageViewModel vm = new FirstPageViewModel(m);
             vm.NewGroup = "Test";
             FlashCard card = new FlashCard("Example question", "Example answer", "Test");
@@ -44,19 +46,20 @@ namespace ModelUnitTest
             bool found = false;
             foreach(FlashCard f in vm.FlashCards)
             {
-                if (f == card)
+                if (f.Group == card.Group)
                 {
                     found = true;
                 }    
             }
-            Assert.IsTrue(found);
+            Assert.IsFalse(found);
         }
 
         [TestMethod]
         public void ViewModelTestDeleteAGroup()
         {
-            MockGroup m = new MockGroup();
+            Group m = new Group();
             m.Setup();
+            m.testMode = true;
             FirstPageViewModel vm = new FirstPageViewModel(m);
             vm.NewGroup = "Test";
             FlashCard card = new FlashCard("Example question", "Example answer", "Test");
@@ -67,7 +70,7 @@ namespace ModelUnitTest
             bool found = false;
             foreach (FlashCard f in vm.FlashCards)
             {
-                if (f == card)
+                if (f.ToString() == card.ToString())
                 {
                     found = true;
                 }

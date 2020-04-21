@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace FlashCards.Model
 {
@@ -12,6 +13,11 @@ namespace FlashCards.Model
 
             public string Group { get; set; }
             public FlashCard(string question, string ans, string group) => (Question, Answer, Group) = (question, ans, group);
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
 
         public FlashCard()
         {
