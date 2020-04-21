@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.iOS", "FlashCard
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCards", "FlashCards\FlashCards\FlashCards.csproj", "{7DB2DCA6-F2CF-4839-8C1A-A76296000F52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelUnitTest", "ModelUnitTest\ModelUnitTest.csproj", "{D0247B32-C724-49B0-B111-C8FC71F39957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "ModelUnitTest\UnitTest.csproj", "{D0247B32-C724-49B0-B111-C8FC71F39957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
