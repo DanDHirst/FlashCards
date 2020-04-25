@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using BasicNavigation;
 using FlashCards;
 using FlashCards.Model;
+using ModelUnitTest.MockModel;
 using Newtonsoft.Json;
 
 public class Group : BindableModelBase
@@ -24,7 +25,7 @@ public class Group : BindableModelBase
                 new FlashCard("Jupiter", "3","net206"),
                 new FlashCard("Mars", "4","prco204"),
                 new FlashCard("Saturn", "5","exam net206"),
-                new FlashCard("Pluto", "6","test")
+                new FlashCard("Pluto", "6","Test")
             };
     }
     public override string ToString()
