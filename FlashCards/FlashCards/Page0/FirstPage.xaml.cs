@@ -78,7 +78,6 @@ namespace FlashCards.Page0
         private void GroupListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             ListOfUniqueGroups itemString = (ListOfUniqueGroups)e.Item;
-            //await DisplayAlert("Alert", "You have clicked " + itemString.Name, "OK");
             vm.NavigateToFlashCardPage(itemString.Name);
         }
 

@@ -13,7 +13,7 @@ namespace FlashCards.AddFlashCardPage
 {
     public class AddFlashCardPageViewModel : ViewModelBase
     {
-        public ICommand AddCommand { get; set; }
+        public ICommand AddCommand { get; set; } // button command for adding a flash card
         private string group;
         private string newQuestion;
         private string newAnswer;
@@ -57,8 +57,8 @@ namespace FlashCards.AddFlashCardPage
         public void AddNewCard()
         {
             FlashCard card = new FlashCard(NewQuestion, NewAnswer,  group);
-            flashCardsViewModel.AddFlashCard(card);
-            Navigation.PopAsync();
+            flashCardsViewModel.AddFlashCard(card); 
+            Navigation.PopAsync(); // return to flashcard page
 
         }
 

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using BasicNavigation;
 using FlashCards;
 using FlashCards.Model;
-using ModelUnitTest.MockModel;
 using Newtonsoft.Json;
 
 public class Group : BindableModelBase
@@ -17,15 +16,15 @@ public class Group : BindableModelBase
 
     public void Setup()
     {
-        Cards = new ObservableCollection<FlashCard>()
+        Cards = new ObservableCollection<FlashCard>() // just mock data for first time run
             {
-                new FlashCard("Earth", "1","soft262"),
-                new FlashCard("Mercury", "2","soft262"),
-                new FlashCard("Venus", "3","prco204"),
-                new FlashCard("Jupiter", "3","net206"),
-                new FlashCard("Mars", "4","prco204"),
-                new FlashCard("Saturn", "5","exam net206"),
-                new FlashCard("Pluto", "6","Test")
+                new FlashCard("Example Question", "Example Answer","soft262"),
+                new FlashCard("Example Question", "Example Answer","soft262"),
+                new FlashCard("Example Question", "Example Answer","prco204"),
+                new FlashCard("Example Question", "Example Answer","net206"),
+                new FlashCard("Example Question", "Example Answer","prco204"),
+                new FlashCard("Example Question", "Example Answer","exam net206"),
+                new FlashCard("Example Question", "Example Answer","Test")
             };
     }
     public override string ToString()

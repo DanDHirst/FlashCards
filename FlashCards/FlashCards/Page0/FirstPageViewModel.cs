@@ -2,7 +2,6 @@
 using FlashCards.EditGroup;
 using FlashCards.FlashCardPage;
 using FlashCards.Model;
-using ModelUnitTest.MockModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -289,7 +288,7 @@ namespace FlashCards.Page0
         async Task UpdateCloudStorage()
         {
 
-            await CosmosDBService.UpdateItem(Groups);
+            await CosmosDBService.UpdateItem(Groups); // update the group
 
 
 
@@ -302,12 +301,12 @@ namespace FlashCards.Page0
 
             try
             {
-                var list = await CosmosDBService.GetGroups("Test");
+                var list = await CosmosDBService.GetGroups("Test"); // get data for that user e.g. in this example is test as there is only one user
                 if (list.Count == 1)
                 {
                     foreach (Group g in list)
                     {
-                        syncFilewithCloud(g);
+                        syncFilewithCloud(g); //pass the group data to be saved to local storage
                     }
 
                 }

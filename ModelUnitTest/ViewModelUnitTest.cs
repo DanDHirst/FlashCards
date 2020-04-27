@@ -29,7 +29,7 @@ namespace UnitTest
                     found = true;
                 }
             }
-            Assert.IsTrue(found);
+            Assert.IsTrue(found); // this should be true
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace UnitTest
                     found = true;
                 }    
             }
-            Assert.IsFalse(found);
+            Assert.IsFalse(found); // this should be false
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace UnitTest
                     found = true;
                 }
             }
-            Assert.IsFalse(found);
+            Assert.IsFalse(found); // this should be false
 
         }
 
@@ -99,7 +99,7 @@ namespace UnitTest
                     found = true;
                 }
             }
-            Assert.IsFalse(found);
+            Assert.IsFalse(found); // this should be false
 
 
         }
@@ -122,7 +122,7 @@ namespace UnitTest
                     found = true;
                 }
             }
-            Assert.IsTrue(found);
+            Assert.IsTrue(found); // this should be true
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@ namespace UnitTest
                     found = true;
                 }
             }
-            Assert.IsFalse(found);
+            Assert.IsFalse(found); // this should be false
 
 
 
